@@ -2,6 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="dk.softwareengineering.shoppingoffer">
 
+    <!-- To auto-complete the email text field in the login form with the user's emails -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.READ_PROFILE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -18,6 +23,33 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".LoginActivity"
+            android:label="@string/title_activity_login" />
+        <activity
+            android:name=".activities.ShowStoresActivity"
+            android:label="@string/title_activity_show_stores"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.ListOffersActivity"
+            android:label="@string/title_activity_list_offers"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.OfferDetailActivity"
+            android:label="@string/title_activity_offer_detail"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.ConfirmOfferActivity"
+            android:label="@string/title_activity_confirm_offer"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.OrderListActivity"
+            android:label="@string/title_activity_order_list"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.OrderDetailActivity"
+            android:label="@string/title_activity_order_detail"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
