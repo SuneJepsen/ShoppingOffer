@@ -14,9 +14,8 @@
     <string name="error_invalid_password">This password is too short</string>
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
-    <string name="permission_rationale">"Contacts permissions are needed for providing email
-        completions."
-    </string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email</string>
+    <string name="action_register">"Register"</string>
     <string name="title_activity_show_stores">ShowStoresActivity</string>
     <string name="title_activity_list_offers">ListOffersActivity</string>
     <string name="title_activity_offer_detail">OfferDetailActivity</string>
