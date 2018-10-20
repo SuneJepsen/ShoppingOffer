@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "55281745997",
+    "firebase_url": "https://shopping-offer-customer.firebaseio.com",
+    "project_id": "shopping-offer-customer",
+    "storage_bucket": "shopping-offer-customer.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:55281745997:android:f816b85b9d6539d7",
+        "android_client_info": {
+          "package_name": "dk.softwareengineering.shoppingoffer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "55281745997-k4c79tbnf1ahgtotofkaqjics9bciguk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCeOk1k1MOIYyZI1490LvgWtjgLr5RuZYw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
