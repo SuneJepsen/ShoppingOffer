@@ -22,4 +22,5 @@
     <string name="title_activity_confirm_offer">ConfirmOfferActivity</string>
     <string name="title_activity_order_list">OrderListActivity</string>
     <string name="title_activity_order_detail">OrderDetailActivity</string>
+    <string name="title_activity_google_maps">Map</string>
 </resources>
