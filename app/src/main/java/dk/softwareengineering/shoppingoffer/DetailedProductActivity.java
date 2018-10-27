@@ -3,6 +3,9 @@ package dk.softwareengineering.shoppingoffer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+/**
+ * @TODO comment code
+ */
 public class DetailedProductActivity extends AppCompatActivity {
 
     @Override
