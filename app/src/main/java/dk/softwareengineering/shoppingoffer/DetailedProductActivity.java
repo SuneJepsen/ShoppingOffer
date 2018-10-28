@@ -28,7 +28,7 @@ public class DetailedProductActivity extends AppCompatActivity {
         Log.d(TAG, "onCreate: started.");
         Offer offer = facade.getOfferById(23);
         Log.d(TAG, offer.getImagePath());
-        ImageView firstImage = (ImageView) findViewById(R.id.productImage);
+        ImageView firstImage = (ImageView) findViewById(R.id.testProductImage);
         int imageResource = getResources().getIdentifier("@drawable/"+offer.getImagePath(), null, this.getPackageName());
         firstImage.setImageResource(imageResource);
     }

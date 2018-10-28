@@ -57,7 +57,8 @@ public class OffersFragmentActivity extends Fragment implements OfferAdapter.Ite
 
     @Override
     public void onItemClick(View view, int position) {
-        Toast.makeText(rootView.getContext(), "You clicked " + adapter.getItem(position) + " on item position " + position, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(rootView.getContext(), "You clicked " + adapter.getItem(position) + " on item position " + position, Toast.LENGTH_SHORT).show();
+        
     }
 
 }
