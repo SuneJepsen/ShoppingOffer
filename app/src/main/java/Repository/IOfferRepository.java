@@ -1,5 +1,7 @@
 package Repository;
 
+import java.util.ArrayList;
+
 import domain.Offer;
 
 /**
@@ -8,4 +10,5 @@ import domain.Offer;
 
 public interface IOfferRepository {
     Offer getOfferById(int id);
+    ArrayList<Offer> getOfferByIds(ArrayList<Integer>offerIds);
 }
