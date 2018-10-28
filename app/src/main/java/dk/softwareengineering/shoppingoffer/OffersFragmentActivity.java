@@ -1,5 +1,6 @@
 package dk.softwareengineering.shoppingoffer;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -21,7 +22,6 @@ public class OffersFragmentActivity extends Fragment implements OfferAdapter.Ite
 
     private View rootView;
     private OfferAdapter adapter;
-    private HomeScreenActivity homeScreen;
 
     @Nullable
     @Override
@@ -57,8 +57,11 @@ public class OffersFragmentActivity extends Fragment implements OfferAdapter.Ite
 
     @Override
     public void onItemClick(View view, int position) {
-        //Toast.makeText(rootView.getContext(), "You clicked " + adapter.getItem(position) + " on item position " + position, Toast.LENGTH_SHORT).show();
-        
+        Intent intent = new Intent(getContext(), DetailedProductActivity.class);
+        String productTitle = adapter.getItem(position);
+        intent.putExtra("ProductTitle", productTitle);
+        startActivity(intent);
+
     }
 
 }
