@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -36,7 +37,7 @@ public class OfferAdapter extends RecyclerView.Adapter<OfferAdapter.ViewHolder> 
     public void onBindViewHolder(ViewHolder holder, int position) {
         int productImage = mViewProducts.get(position);
         String productText = mProducts.get(position);
-        holder.productImage.setBackgroundColor(productImage);
+        holder.productImage.setImageResource(R.drawable.newautumnset);
         holder.productText.setText(productText);
     }
 
@@ -47,7 +48,7 @@ public class OfferAdapter extends RecyclerView.Adapter<OfferAdapter.ViewHolder> 
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        View productImage;
+        ImageView productImage;
         TextView productText;
 
         public ViewHolder(View itemView) {

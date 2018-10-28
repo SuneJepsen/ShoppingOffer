@@ -18,21 +18,21 @@ import domain.Offer;
  */
 public class DetailedProductActivity extends AppCompatActivity {
 
-    private static  final String TAG ="TestSuneActivity";
-    private final IFacade facade;
+//    private static  final String TAG ="TestSuneActivity";
+//    private final IFacade facade;
 
-    public DetailedProductActivity() {
-        this.facade = new Facade();
-    }
+//    public DetailedProductActivity() {
+//        this.facade = new Facade();
+//    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detailed_product);
-        Log.d(TAG, "onCreate: started.");
-        Offer offer = facade.getOfferById(23);
-        Log.d(TAG, offer.getImagePath());
-        ImageView firstImage = (ImageView) findViewById(R.id.testProductImage);
+        //Log.d(TAG, "onCreate: started.");
+        //Offer offer = facade.getOfferById(23);
+        //Log.d(TAG, offer.getImagePath());
+        //ImageView firstImage = (ImageView) findViewById(R.id.testProductImage);
         TextView productTitle = (TextView) findViewById(R.id.productTitle);
 
         Intent intent = getIntent();
@@ -44,8 +44,8 @@ public class DetailedProductActivity extends AppCompatActivity {
         }
 
 
-        int imageResource = getResources().getIdentifier("@drawable/"+offer.getImagePath(), null, this.getPackageName());
-        firstImage.setImageResource(imageResource);
+        //int imageResource = getResources().getIdentifier("@drawable/"+offer.getImagePath(), null, this.getPackageName());
+        //firstImage.setImageResource(imageResource);
     }
 
 
