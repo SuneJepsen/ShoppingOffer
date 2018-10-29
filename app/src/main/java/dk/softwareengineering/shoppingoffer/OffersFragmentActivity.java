@@ -33,7 +33,7 @@ public class OffersFragmentActivity extends Fragment implements OfferAdapter.Ite
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.activity_offers, container, false);
+        rootView = inflater.inflate(R.layout.activity_offers_fragment, container, false);
 
 
         // Data to populate the RecyclerView with
@@ -60,9 +60,9 @@ public class OffersFragmentActivity extends Fragment implements OfferAdapter.Ite
         Intent intent = new Intent(getContext(), DetailedOfferActivity.class);
         Offer offer = adapter.getItem(position);
 
-        int offerID = offer.getId();
+        int offerId = offer.getId();
 
-        intent.putExtra("offerID", offerID);
+        intent.putExtra("offerId", offerId);
         startActivity(intent);
 
     }

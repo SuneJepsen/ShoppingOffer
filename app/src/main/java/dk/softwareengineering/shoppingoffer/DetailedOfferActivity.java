@@ -32,8 +32,8 @@ public class DetailedOfferActivity extends AppCompatActivity {
         savedInstanceState = intent.getExtras();
 
         if (savedInstanceState != null){
-            int offerID = (Integer) savedInstanceState.getInt("offerID");
-            Offer offer = facade.getOfferById(offerID);
+            int offerId = (Integer) savedInstanceState.getInt("offerId");
+            Offer offer = facade.getOfferById(offerId);
             int imageResource = getResources().getIdentifier("@drawable/"+offer.getImagePath(), null, this.getPackageName());
 
             img_offerImage.setImageResource(imageResource);

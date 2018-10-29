@@ -13,6 +13,9 @@ import java.util.List;
 
 import domain.Offer;
 
+/**
+ * Inspiration from https://stackoverflow.com/questions/40584424/simple-android-recyclerview-example
+ */
 public class OfferAdapter extends RecyclerView.Adapter<OfferAdapter.ViewHolder> {
 
     private List<Offer> mOffers;
@@ -20,18 +23,21 @@ public class OfferAdapter extends RecyclerView.Adapter<OfferAdapter.ViewHolder> 
     private ItemClickListener mClickListener;
     private Context context;
 
+    // data is passed into the constructor
     public OfferAdapter(Context context, List<Offer> mOffers) {
         this.mInflater = LayoutInflater.from(context);
         this.mOffers = mOffers;
         this.context = context;
     }
 
+    // inflates the row layout from xml when needed
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = mInflater.inflate(R.layout.recyclerview_offer, parent, false);
         return new ViewHolder(view);
     }
 
+    // binds the data to the different elements of the offer
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Offer offer = mOffers.get(position);
@@ -42,11 +48,13 @@ public class OfferAdapter extends RecyclerView.Adapter<OfferAdapter.ViewHolder> 
         holder.txt_offerTitle.setText(mOfferTitle);
     }
 
+    // total number of rows
     @Override
     public int getItemCount() {
         return mOffers.size();
     }
 
+    // stores and recycles views as they are scrolled off screen
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         ImageView img_offerImage;
@@ -54,8 +62,8 @@ public class OfferAdapter extends RecyclerView.Adapter<OfferAdapter.ViewHolder> 
 
         public ViewHolder(View itemView) {
             super(itemView);
-            img_offerImage = itemView.findViewById(R.id.img_product);
-            txt_offerTitle = itemView.findViewById(R.id.tv_productName);
+            img_offerImage = itemView.findViewById(R.id.img_offer);
+            txt_offerTitle = itemView.findViewById(R.id.txt_offerTitle);
             itemView.setOnClickListener(this);
         }
 
@@ -66,11 +74,12 @@ public class OfferAdapter extends RecyclerView.Adapter<OfferAdapter.ViewHolder> 
         }
     }
 
+    // convenience method for getting data at click position
     public Offer getItem(int id) {
         return mOffers.get(id);
-
     }
 
+    // allows clicks events to be caught
     public void setClickListener(ItemClickListener itemClickListener) {
         this.mClickListener = itemClickListener;
     }
