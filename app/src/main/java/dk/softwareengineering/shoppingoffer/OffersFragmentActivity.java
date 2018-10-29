@@ -35,10 +35,8 @@ public class OffersFragmentActivity extends Fragment implements OfferAdapter.Ite
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.activity_offers_fragment, container, false);
 
-
         // Data to populate the RecyclerView with
         ArrayList<Offer> offers = facade.getOffersByLatLong(55.55, 55.55);
-        //offers = facade.getOffers();
 
         // Setup RecyclerView
         RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.rv_offers);
@@ -51,7 +49,6 @@ public class OffersFragmentActivity extends Fragment implements OfferAdapter.Ite
         adapter = new OfferAdapter(rootView.getContext(), offers);
         adapter.setClickListener(this);
         recyclerView.setAdapter(adapter);
-
         return rootView;
     }
 
@@ -59,12 +56,9 @@ public class OffersFragmentActivity extends Fragment implements OfferAdapter.Ite
     public void onItemClick(View view, int position) {
         Intent intent = new Intent(getContext(), DetailedOfferActivity.class);
         Offer offer = adapter.getItem(position);
-
         int offerId = offer.getId();
-
         intent.putExtra("offerId", offerId);
         startActivity(intent);
-
     }
 
 }
