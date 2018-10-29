@@ -1,5 +1,8 @@
 package businessLayer;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import Repository.FakeOfferRepository;
 import Repository.IOfferRepository;
 import domain.Offer;
@@ -17,5 +20,10 @@ public class Facade implements IFacade {
     @Override
     public Offer getOfferById(int id) {
         return this.offerRepository.getOfferById(id);
+    }
+
+    @Override
+    public ArrayList<Offer> getOffersByLatLong(double latitude, double longitude) {
+        return this.offerRepository.getOfferByIds(new ArrayList<Integer>(){{add(1);add(2);}});
     }
 }
