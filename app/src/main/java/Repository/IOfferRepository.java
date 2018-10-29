@@ -11,5 +11,5 @@ import domain.Offer;
 public interface IOfferRepository {
     Offer getOfferById(int id);
     ArrayList<Offer> getOfferByIds(ArrayList<Integer>offerIds);
-    ArrayList<Offer> getOffers();
+    ArrayList<Offer> getStoreOffers(Integer storeId);
 }

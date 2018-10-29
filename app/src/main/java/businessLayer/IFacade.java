@@ -12,5 +12,5 @@ import domain.Offer;
 public interface IFacade {
     Offer getOfferById(int id);
     ArrayList<Offer> getOffersByLatLong(double latitude, double longitude);
-    ArrayList<Offer> getOffers();
+    ArrayList<Offer> getStoreOffers(Integer storeId);
 }
