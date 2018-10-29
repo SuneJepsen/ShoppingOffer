@@ -65,7 +65,7 @@ public class HomeScreenActivity extends AppCompatActivity implements OnMapReadyC
 
         try {
             mMap = googleMap;
-            mMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
+            mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
             Location location = LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
             if (location != null) {
                 Log.i("GoogleMaps", "Initial location " + location.getLatitude() + ", " + location.getLongitude());
