@@ -7,18 +7,18 @@
     tools:context=".DetailedProductActivity">
 
     <ImageView
-        android:id="@+id/testProductImage"
+        android:id="@+id/img_offerImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/productTitle"
+        app:layout_constraintTop_toBottomOf="@+id/txt_offerTitle"
         app:srcCompat="@color/place_autocomplete_search_hint" />
 
     <TextView
-        android:id="@+id/productTitle"
+        android:id="@+id/txt_offerTitle"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"

@@ -1,6 +1,7 @@
 package dk.softwareengineering.shoppingoffer;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,22 +11,20 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import domain.Offer;
+
 public class OfferAdapter extends RecyclerView.Adapter<OfferAdapter.ViewHolder> {
 
-    private List<Integer> mViewProducts;
-    private List<String> mProducts;
+    private List<Offer> mOffers;
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
+    private Context context;
 
-
-    public OfferAdapter(Context context, List<Integer> viewProducts, List<String> products) {
+    public OfferAdapter(Context context, List<Offer> mOffers) {
         this.mInflater = LayoutInflater.from(context);
-        this.mViewProducts = viewProducts;
-        this.mProducts = products;
+        this.mOffers = mOffers;
+        this.context = context;
     }
-
-
-
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -35,26 +34,28 @@ public class OfferAdapter extends RecyclerView.Adapter<OfferAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        int productImage = mViewProducts.get(position);
-        String productText = mProducts.get(position);
-        holder.productImage.setImageResource(R.drawable.newautumnset);
-        holder.productText.setText(productText);
+        final Offer offer = mOffers.get(position);
+        int imageResource = context.getResources().getIdentifier("@drawable/"+offer.getImagePath(), null, context.getPackageName());
+
+        String mOfferTitle = offer.getTitle();
+        holder.img_offerImage.setImageResource(imageResource);
+        holder.txt_offerTitle.setText(mOfferTitle);
     }
 
     @Override
     public int getItemCount() {
-        return mProducts.size();
+        return mOffers.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        ImageView productImage;
-        TextView productText;
+        ImageView img_offerImage;
+        TextView txt_offerTitle;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            productImage = itemView.findViewById(R.id.img_product);
-            productText = itemView.findViewById(R.id.tv_productName);
+            img_offerImage = itemView.findViewById(R.id.img_product);
+            txt_offerTitle = itemView.findViewById(R.id.tv_productName);
             itemView.setOnClickListener(this);
         }
 
@@ -65,8 +66,9 @@ public class OfferAdapter extends RecyclerView.Adapter<OfferAdapter.ViewHolder> 
         }
     }
 
-    public String getItem(int id) {
-        return mProducts.get(id);
+    public Offer getItem(int id) {
+        return mOffers.get(id);
+
     }
 
     public void setClickListener(ItemClickListener itemClickListener) {

@@ -1,19 +1,20 @@
 package dk.softwareengineering.shoppingoffer;
 
 import android.content.Intent;
-import android.graphics.Color;
+import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import java.util.ArrayList;
+
+import businessLayer.Facade;
+import businessLayer.IFacade;
+import domain.Offer;
 
 /**
  * @TODO Comment and comment purpose of class
@@ -22,6 +23,11 @@ public class OffersFragmentActivity extends Fragment implements OfferAdapter.Ite
 
     private View rootView;
     private OfferAdapter adapter;
+    private final IFacade facade;
+
+    public OffersFragmentActivity() {
+        this.facade = new Facade();
+    }
 
     @Nullable
     @Override
@@ -29,26 +35,14 @@ public class OffersFragmentActivity extends Fragment implements OfferAdapter.Ite
         rootView = inflater.inflate(R.layout.activity_offers, container, false);
 
 
-        // data to populate the RecyclerView with
-        ArrayList<Integer> viewImages = new ArrayList<>();
-        viewImages.add(Color.BLUE);
-        viewImages.add(Color.YELLOW);
-        viewImages.add(Color.MAGENTA);
-        viewImages.add(Color.RED);
-        viewImages.add(Color.BLACK);
-
-        ArrayList<String> productNames = new ArrayList<>();
-        productNames.add("Jeans");
-        productNames.add("Shirt");
-        productNames.add("Pants");
-        productNames.add("Shirt");
-        productNames.add("Shoes");
+        // Data to populate the RecyclerView with
+        ArrayList<Offer> offers = facade.getOffersByLatLong(55.55, 55.55);
 
         // Setup RecyclerView
         RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.rv_offers);
         LinearLayoutManager horizontalLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(horizontalLayoutManager);
-        adapter = new OfferAdapter(rootView.getContext(), viewImages, productNames);
+        adapter = new OfferAdapter(rootView.getContext(), offers);
         adapter.setClickListener(this);
         recyclerView.setAdapter(adapter);
 
@@ -58,8 +52,9 @@ public class OffersFragmentActivity extends Fragment implements OfferAdapter.Ite
     @Override
     public void onItemClick(View view, int position) {
         Intent intent = new Intent(getContext(), DetailedProductActivity.class);
-        String productTitle = adapter.getItem(position);
-        intent.putExtra("ProductTitle", productTitle);
+        Offer offer = adapter.getItem(position);
+        int offerID = offer.getId();
+        intent.putExtra("offerID", offerID);
         startActivity(intent);
 
     }
