@@ -15,7 +15,7 @@ public class FakeOfferRepository implements IOfferRepository {
     public FakeOfferRepository() {
         this.offers = new ArrayList<Offer>(){{
             add(new Offer( 23, "Pants", 80, 55.367913,10.428155, 500, "pants", new Date(), 100,  new Date(), new Store(2) ));
-            add(new Offer( 24, "New Autumn Set", 70, 55.367913,10.428155, 400, "newautumnset", new Date(), 100,  new Date(), new Store(2) ));
+            add(new Offer( 24, "Shirt", 70, 55.367913,10.428155, 400, "shirt", new Date(), 100,  new Date(), new Store(2) ));
             add(new Offer( 25, "New Autumn Set", 60, 55.367913,10.428155, 300, "newautumnset", new Date(), 100,  new Date(), new Store(2) ));
             add(new Offer( 26, "New Autumn Set", 50, 55.367913,10.428155, 200, "newautumnset", new Date(), 100,  new Date(), new Store(2) ));
             add(new Offer( 27, "New Autumn Set", 40, 55.367913,10.428155, 200, "newautumnset", new Date(), 100,  new Date(), new Store(2) ));
