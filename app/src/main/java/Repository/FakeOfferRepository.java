@@ -12,19 +12,8 @@ import domain.Store;
 public class FakeOfferRepository implements IOfferRepository {
     private ArrayList<Offer> offers;
 
-    public FakeOfferRepository() {
-        this.offers = new ArrayList<Offer>(){{
-            add(new Offer( 23, "Pants", 80, 55.367913,10.428155, 500, "pants", new Date(), 100,  new Date(), new Store(2) ));
-            add(new Offer( 24, "Shirt", 70, 55.367913,10.428155, 400, "shirt", new Date(), 100,  new Date(), new Store(2) ));
-            add(new Offer( 25, "New Autumn Set", 60, 55.367913,10.428155, 300, "newautumnset", new Date(), 100,  new Date(), new Store(2) ));
-            add(new Offer( 26, "New Autumn Set", 50, 55.367913,10.428155, 200, "newautumnset", new Date(), 100,  new Date(), new Store(2) ));
-            add(new Offer( 27, "New Autumn Set", 40, 55.367913,10.428155, 200, "newautumnset", new Date(), 100,  new Date(), new Store(2) ));
-            add(new Offer( 28, "New Autumn Set", 30, 55.367913,10.428155, 200, "newautumnset", new Date(), 100,  new Date(), new Store(3) ));
-            add(new Offer( 29, "New Autumn Set", 80, 55.367913,10.428155, 200, "newautumnset", new Date(), 100,  new Date(), new Store(3) ));
-            add(new Offer( 30, "New Autumn Set", 70, 55.367913,10.428155, 200, "newautumnset", new Date(), 100,  new Date(), new Store(3) ));
-            add(new Offer( 31, "New Autumn Set", 60, 55.367913,10.428155, 200, "newautumnset", new Date(), 100,  new Date(), new Store(3) ));
-            add(new Offer( 32, "New Autumn Set", 50, 55.367913,10.428155, 200, "newautumnset", new Date(), 100,  new Date(), new Store(3) ));
-        }};
+    public FakeOfferRepository(IStoreFactory storeFactory) {
+        this.offers = storeFactory.getOffers();
     }
 
     @Override
