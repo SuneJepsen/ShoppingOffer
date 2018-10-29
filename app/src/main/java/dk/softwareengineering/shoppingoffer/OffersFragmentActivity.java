@@ -24,6 +24,7 @@ public class OffersFragmentActivity extends Fragment implements OfferAdapter.Ite
     private View rootView;
     private OfferAdapter adapter;
     private final IFacade facade;
+    private ArrayList<Offer> offers;
 
     public OffersFragmentActivity() {
         this.facade = new Facade();
@@ -37,7 +38,7 @@ public class OffersFragmentActivity extends Fragment implements OfferAdapter.Ite
 
         // Data to populate the RecyclerView with
         //ArrayList<Offer> offers = facade.getOffersByLatLong(55.55, 55.55);
-        ArrayList<Offer> offers = facade.getOffers();
+        offers = facade.getOffers();
 
         // Setup RecyclerView
         RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.rv_offers);
@@ -54,8 +55,7 @@ public class OffersFragmentActivity extends Fragment implements OfferAdapter.Ite
     public void onItemClick(View view, int position) {
         Intent intent = new Intent(getContext(), DetailedOfferActivity.class);
         Offer offer = adapter.getItem(position);
-        int offerID = offer.getId();
-        intent.putExtra("offerID", offerID);
+        intent.putExtra("offerID", offer.getTitle());
         startActivity(intent);
 
     }

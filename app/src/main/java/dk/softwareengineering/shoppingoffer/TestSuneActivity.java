@@ -25,12 +25,12 @@ public class TestSuneActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test_sune);
-        Log.d(TAG, "onCreate: started.");
-        Offer offer = facade.getOfferById(23);
-        ArrayList<Offer> offers =  facade.getOffersByLatLong(55.55,55.55);
-        Log.d(TAG, offer.getImagePath());
-        ImageView firstImage = (ImageView) findViewById(R.id.firstImage);
-        int imageResource = getResources().getIdentifier("@drawable/"+offer.getImagePath(), null, this.getPackageName());
-        firstImage.setImageResource(imageResource);
+//        Log.d(TAG, "onCreate: started.");
+//        Offer offer = facade.getOfferById(23);
+//        ArrayList<Offer> offers =  facade.getOffersByLatLong(55.55,55.55);
+//        Log.d(TAG, offer.getImagePath());
+//        ImageView firstImage = (ImageView) findViewById(R.id.firstImage);
+//        int imageResource = getResources().getIdentifier("@drawable/"+offer.getImagePath(), null, this.getPackageName());
+//        firstImage.setImageResource(imageResource);
     }
 }
