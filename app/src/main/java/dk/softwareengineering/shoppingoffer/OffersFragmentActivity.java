@@ -44,6 +44,10 @@ public class OffersFragmentActivity extends Fragment implements OfferAdapter.Ite
         RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.rv_offers);
         LinearLayoutManager horizontalLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(horizontalLayoutManager);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setItemViewCacheSize(20);
+        recyclerView.setDrawingCacheEnabled(true);
+        recyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
         adapter = new OfferAdapter(rootView.getContext(), offers);
         adapter.setClickListener(this);
         recyclerView.setAdapter(adapter);
