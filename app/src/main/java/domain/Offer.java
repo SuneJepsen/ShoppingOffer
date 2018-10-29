@@ -17,8 +17,9 @@ public class Offer {
     private Date TimeCounter=null;
     private Integer AmountCounter=null;
     private Date CreatedDate;
+    private Store Store;
 
-    public Offer(int id, String title, double discount, double latitude, double longitude, double price, String imagePath, Date timeCounter, Integer amountCounter, Date createdDate) {
+    public Offer(int id, String title, double discount, double latitude, double longitude, double price, String imagePath, Date timeCounter, Integer amountCounter, Date createdDate, Store store) {
         Id = id;
         Title = title;
         Discount = discount;
@@ -29,6 +30,7 @@ public class Offer {
         TimeCounter = timeCounter;
         AmountCounter = amountCounter;
         CreatedDate = createdDate;
+        Store = store;
     }
 
     public int getId() {
@@ -110,5 +112,13 @@ public class Offer {
 
     public void setCreatedDate(Date createdDate) {
         CreatedDate = createdDate;
+    }
+
+    public domain.Store getStore() {
+        return Store;
+    }
+
+    public void setStore(domain.Store store) {
+        Store = store;
     }
 }

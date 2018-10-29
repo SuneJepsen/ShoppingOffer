@@ -5,4 +5,17 @@ package domain;
  */
 
 public class Store {
+    private int Id;
+
+    public Store(int id) {
+        Id = id;
+    }
+
+    public int getId() {
+        return Id;
+    }
+
+    public void setId(int id) {
+        Id = id;
+    }
 }
