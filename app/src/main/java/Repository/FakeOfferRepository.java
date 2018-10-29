@@ -38,4 +38,9 @@ public class FakeOfferRepository implements IOfferRepository {
         return this.offers;
     }
 
+    @Override
+    public ArrayList<Offer> getOffers() {
+        return offers;
+    }
+
 }

@@ -34,7 +34,7 @@ public class OfferAdapter extends RecyclerView.Adapter<OfferAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        final Offer offer = mOffers.get(position);
+        Offer offer = mOffers.get(position);
         int imageResource = context.getResources().getIdentifier("@drawable/"+offer.getImagePath(), null, context.getPackageName());
 
         String mOfferTitle = offer.getTitle();

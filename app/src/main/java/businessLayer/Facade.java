@@ -26,4 +26,8 @@ public class Facade implements IFacade {
     public ArrayList<Offer> getOffersByLatLong(double latitude, double longitude) {
         return this.offerRepository.getOfferByIds(new ArrayList<Integer>(){{add(1);add(2);}});
     }
+    @Override
+    public ArrayList<Offer> getOffers() {
+        return this.offerRepository.getOffers();
+    }
 }

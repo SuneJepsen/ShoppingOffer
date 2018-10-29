@@ -12,18 +12,18 @@ import domain.Offer;
 /**
  * @TODO comment code
  */
-public class DetailedProductActivity extends AppCompatActivity {
+public class DetailedOfferActivity extends AppCompatActivity {
 
     private final IFacade facade;
 
-    public DetailedProductActivity() {
+    public DetailedOfferActivity() {
         this.facade = new Facade();
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detailed_product);
+        setContentView(R.layout.activity_detailed_offer);
 
         ImageView img_offerImage = (ImageView) findViewById(R.id.img_offerImage);
         TextView txt_offerTitle = (TextView) findViewById(R.id.txt_offerTitle);
