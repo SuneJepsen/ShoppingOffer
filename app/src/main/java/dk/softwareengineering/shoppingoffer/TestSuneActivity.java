@@ -6,6 +6,8 @@ import android.util.Log;
 import android.widget.ImageView;
 
 
+import java.util.ArrayList;
+
 import businessLayer.Facade;
 import businessLayer.IFacade;
 import domain.Offer;
@@ -25,6 +27,7 @@ public class TestSuneActivity extends AppCompatActivity {
         setContentView(R.layout.activity_test_sune);
         Log.d(TAG, "onCreate: started.");
         Offer offer = facade.getOfferById(23);
+        ArrayList<Offer> offers =  facade.getOffersByLatLong(55.55,55.55);
         Log.d(TAG, offer.getImagePath());
         ImageView firstImage = (ImageView) findViewById(R.id.firstImage);
         int imageResource = getResources().getIdentifier("@drawable/"+offer.getImagePath(), null, this.getPackageName());

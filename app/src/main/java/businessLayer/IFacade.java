@@ -1,5 +1,8 @@
 package businessLayer;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import domain.Offer;
 
 /**
@@ -8,4 +11,5 @@ import domain.Offer;
 
 public interface IFacade {
     Offer getOfferById(int id);
+    ArrayList<Offer> getOffersByLatLong(double latitude, double longitude);
 }
