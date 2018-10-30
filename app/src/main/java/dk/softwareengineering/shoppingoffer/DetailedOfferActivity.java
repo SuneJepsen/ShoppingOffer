@@ -28,6 +28,11 @@ public class DetailedOfferActivity extends AppCompatActivity {
         ImageView img_offerImage = (ImageView) findViewById(R.id.img_offerImage);
         TextView txt_offerTitle = (TextView) findViewById(R.id.txt_offerTitle);
 
+        TextView txt_numberOfCoupons = (TextView) findViewById(R.id.txtNumberOfCoupons);
+        TextView txt_offerPrice = (TextView) findViewById(R.id.txtPrice);
+        TextView txt_timeLimit = (TextView) findViewById(R.id.txtTimeLimit);
+
+
         Intent intent = getIntent();
         savedInstanceState = intent.getExtras();
 
@@ -37,7 +42,11 @@ public class DetailedOfferActivity extends AppCompatActivity {
             int imageResource = getResources().getIdentifier("@drawable/"+offer.getImagePath(), null, this.getPackageName());
             img_offerImage.setImageResource(imageResource);
             txt_offerTitle.setText(offer.getTitle());
+            txt_numberOfCoupons.setText(Integer.toString(offer.getAmountCounter()));
+            txt_offerPrice.setText(Double.toString(offer.getPrice()));
+            txt_timeLimit.setText(offer.getTimeCounter().toString());
         }
+
     }
 
 
