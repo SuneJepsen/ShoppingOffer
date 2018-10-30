@@ -30,7 +30,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".MyCouponsActivity" />
-        <activity android:name=".DetailedProductActivity" />
+        <activity android:name=".DetailedOfferActivity" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -42,9 +42,6 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
-
-        <activity android:name=".OffersActivity" />
-        <activity android:name=".TestSuneActivity"></activity>
     </application>
 
 </manifest>

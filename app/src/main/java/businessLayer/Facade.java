@@ -1,8 +1,12 @@
 package businessLayer;
 import java.util.ArrayList;
 import Repository.FakeOfferRepository;
+import Repository.FakeStoreFactory;
+import Repository.FakeStoreRepository;
 import Repository.IOfferRepository;
+import Repository.IStoreFactory;
 import domain.Offer;
+import domain.Store;
 
 /**
  * Created by Sune Jepsen on 27-10-2018.
@@ -10,9 +14,12 @@ import domain.Offer;
 
 public class Facade implements IFacade {
     private final IOfferRepository offerRepository;
+    private final FakeStoreRepository storeRepository;
 
     public Facade(){
-        this.offerRepository = new FakeOfferRepository();
+        IStoreFactory factory = new FakeStoreFactory();
+        this.offerRepository = new FakeOfferRepository(factory);
+        this.storeRepository = new FakeStoreRepository(factory);
     }
     @Override
     public Offer getOfferById(int id) {
@@ -26,5 +33,10 @@ public class Facade implements IFacade {
     @Override
     public ArrayList<Offer> getStoreOffers(Integer storeId) {
         return this.offerRepository.getStoreOffers(storeId);
+    }
+    @Override
+    public ArrayList<Store> getStores(double latitude, double longitude) {
+        //ToDo: Find stores by distance
+        return this.storeRepository.getStoresByIds(new ArrayList<Integer>(){{add(1);add(2);}});
     }
 }
