@@ -3,6 +3,8 @@ package dk.softwareengineering.shoppingoffer;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import businessLayer.Facade;
@@ -31,6 +33,14 @@ public class DetailedOfferActivity extends AppCompatActivity {
         TextView txt_numberOfCoupons = (TextView) findViewById(R.id.txtNumberOfCoupons);
         TextView txt_offerPrice = (TextView) findViewById(R.id.txtPrice);
         TextView txt_timeLimit = (TextView) findViewById(R.id.txtTimeLimit);
+        Button btn_reserve = (Button) findViewById(R.id.btnReserve);
+        btn_reserve.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DetailedOfferActivity.this, MyCouponsActivity.class);
+                startActivity(intent);
+            }
+        });
 
 
         Intent intent = getIntent();
