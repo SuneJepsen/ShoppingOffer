@@ -1,7 +1,9 @@
 package dk.softwareengineering.shoppingoffer;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -36,8 +38,14 @@ public class CouponsFragmentActivity extends Fragment implements  MyCouponsAdapt
         rootView = inflater.inflate(R.layout.activity_coupons_fragment, container, false);
 
         // Data to populate the RecyclerView with
-        ArrayList<Offer> offers = facade.getOffersByLatLong(55.55, 55.55);
+        //ArrayList<Offer> offers = facade.getOffersByLatLong(55.55, 55.55);
 
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+        int offerId = preferences.getInt("offerId", 0);
+
+        ArrayList<Offer> offers = new ArrayList<>();
+        Offer offer = facade.getOfferById(offerId);
+        offers.add(offer);
         // Setup RecyclerView
         RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.rv_coupons);
         LinearLayoutManager verticalLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);

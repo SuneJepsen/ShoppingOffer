@@ -64,7 +64,7 @@ public class MyCouponsAdapter extends RecyclerView.Adapter<MyCouponsAdapter.View
             txt_offerTitle = itemView.findViewById(R.id.txt_offerTitle);
             txt_offerPrice = itemView.findViewById(R.id.txt_offerPrice);
             txt_offerDiscount = itemView.findViewById(R.id.txt_offerDiscount);
-            txt_stock = itemView.findViewById(R.id.txt_offerStock);
+            txt_stock = itemView.findViewById(R.id.txt_stock);
             itemView.setOnClickListener(this);
         }
         @Override

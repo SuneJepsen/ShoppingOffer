@@ -1,6 +1,8 @@
 package dk.softwareengineering.shoppingoffer;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -27,6 +29,10 @@ public class DetailedOfferActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detailed_offer);
 
+
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = preferences.edit();
+
         ImageView img_offerImage = (ImageView) findViewById(R.id.img_offerImage);
         TextView txt_offerTitle = (TextView) findViewById(R.id.txt_offerTitle);
 
@@ -38,6 +44,7 @@ public class DetailedOfferActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(DetailedOfferActivity.this, MyCouponsActivity.class);
+
                 startActivity(intent);
             }
         });
@@ -48,6 +55,8 @@ public class DetailedOfferActivity extends AppCompatActivity {
 
         if (savedInstanceState != null){
             int offerId = (Integer) savedInstanceState.getInt("offerId");
+            editor.putInt("offerId", offerId);
+            editor.apply();
             Offer offer = facade.getOfferById(offerId);
             int imageResource = getResources().getIdentifier("@drawable/"+offer.getImagePath(), null, this.getPackageName());
             img_offerImage.setImageResource(imageResource);
