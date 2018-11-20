@@ -1,5 +1,9 @@
 package dk.softwareengineering.shoppingoffer;
 
+import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.location.Location;
 
@@ -11,6 +15,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
@@ -30,13 +35,22 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import android.view.View;
 import android.widget.Button;
 
+import java.util.List;
+
+import businessLayer.Facade;
+import businessLayer.IFacade;
+import domain.Store;
+import geofence.GoogleGeofence;
+import geofence.IGeofence;
+
 
 /**
  * @TODO Comment and comment purpose of class
  */
 public class HomeScreenActivity extends AppCompatActivity implements OnMapReadyCallback,GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener, LocationListener {
-
+    public static final String ACTION = "GeofenceIntentService";
+    private static final String TAG = "GoogleMaps";
     private static final int UPDATE_INTERVAL = 1000, FASTEST_INTERVAL = 1000 ;
     private GoogleMap mMap;
     private GoogleApiClient googleApiClient;
@@ -46,6 +60,9 @@ public class HomeScreenActivity extends AppCompatActivity implements OnMapReadyC
     private Marker marker;
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
+    private IFacade facade;
+    private IGeofence googleGeofence;
+    private List<Store> stores;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -64,7 +81,36 @@ public class HomeScreenActivity extends AppCompatActivity implements OnMapReadyC
                 .addOnConnectionFailedListener(this).build();
         googleApiClient.connect();
 
-        
+        facade = new Facade();
+        stores = facade.getStores(0,0);
+
+        LocalBroadcastManager.getInstance(this).registerReceiver(messageReceiver,
+                new IntentFilter(ACTION));
+
+    }
+
+    private BroadcastReceiver messageReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Log.d(TAG, "Got intent");
+
+            Log.i(TAG, "result " +  intent.getIntExtra("resultCode", 10000));
+            Log.i(TAG, "store " + intent.getIntExtra("storeId", 10000));
+            Log.i(TAG, "result " + intent.getIntExtra("resultValue", 10000));
+        }
+    };
+
+    @Override
+    protected void onDestroy() {
+        // Unregister since the activity is about to be closed.
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(messageReceiver);
+        super.onDestroy();
+    }
+
+    private void setupGeofence() {
+        for (Store store : facade.getStores(0,0)) {
+            googleGeofence.attachGeofences(store);
+        }
     }
 
     private void setupMenuBar() {
@@ -135,7 +181,9 @@ public class HomeScreenActivity extends AppCompatActivity implements OnMapReadyC
         if (ContextCompat.checkSelfPermission(this.getApplicationContext(),
                 android.Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
+            Log.i(TAG, "permission already granted");
             mapFragment.getMapAsync(this);
+            setupGeofence();
         } else {
             ActivityCompat.requestPermissions(this,
                     new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
@@ -152,7 +200,9 @@ public class HomeScreenActivity extends AppCompatActivity implements OnMapReadyC
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Log.i(TAG, "permissions granted");
                     mapFragment.getMapAsync(this);
+                    setupGeofence();
                 }
             }
         }
@@ -160,7 +210,10 @@ public class HomeScreenActivity extends AppCompatActivity implements OnMapReadyC
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
+        Log.i(TAG, "conntected");
+        googleGeofence = new GoogleGeofence(this, googleApiClient, 1000, 5);
         getLocationPermission();
+
     }
 
     @Override
