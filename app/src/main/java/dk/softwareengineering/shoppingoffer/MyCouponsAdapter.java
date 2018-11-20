@@ -34,10 +34,16 @@ public class MyCouponsAdapter extends RecyclerView.Adapter<MyCouponsAdapter.View
     public void onBindViewHolder(final ViewHolder holder, int position) {
         Offer offer = mOffers.get(position);
         int imageResource = context.getResources().getIdentifier("@drawable/"+offer.getImagePath(), null, context.getPackageName());
-
         String mOfferTitle = offer.getTitle();
+        double mOfferDiscount = offer.getDiscount();
+        double mOfferPrice = offer.getPrice();
+        int mAmmount = offer.getAmountCounter();
+
         holder.img_offerImage.setImageResource(imageResource);
         holder.txt_offerTitle.setText(mOfferTitle);
+        holder.txt_offerDiscount.setText("-"+ Double.toString(mOfferDiscount) + "%");
+        holder.txt_offerPrice.setText(Double.toString(mOfferPrice));
+        holder.txt_stock.setText(Integer.toString(mAmmount));
     }
 
     @Override
@@ -48,11 +54,17 @@ public class MyCouponsAdapter extends RecyclerView.Adapter<MyCouponsAdapter.View
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         ImageView img_offerImage;
         TextView txt_offerTitle;
+        TextView txt_offerPrice;
+        TextView txt_offerDiscount;
+        TextView txt_stock;
 
         public ViewHolder(View view) {
             super(view);
             img_offerImage = itemView.findViewById(R.id.img_offer);
             txt_offerTitle = itemView.findViewById(R.id.txt_offerTitle);
+            txt_offerPrice = itemView.findViewById(R.id.txt_offerPrice);
+            txt_offerDiscount = itemView.findViewById(R.id.txt_offerDiscount);
+            txt_stock = itemView.findViewById(R.id.txt_offerStock);
             itemView.setOnClickListener(this);
         }
         @Override
