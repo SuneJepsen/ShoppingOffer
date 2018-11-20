@@ -63,6 +63,8 @@ public class HomeScreenActivity extends AppCompatActivity implements OnMapReadyC
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this).build();
         googleApiClient.connect();
+
+        
     }
 
     private void setupMenuBar() {
