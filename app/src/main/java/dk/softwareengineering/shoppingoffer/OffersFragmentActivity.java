@@ -1,5 +1,6 @@
 package dk.softwareengineering.shoppingoffer;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -19,6 +20,7 @@ import domain.Offer;
 /**
  * @TODO Comment and comment purpose of class
  */
+@SuppressLint("ValidFragment")
 public class OffersFragmentActivity extends Fragment implements OfferAdapter.ItemClickListener {
 
     private View rootView;
@@ -26,8 +28,8 @@ public class OffersFragmentActivity extends Fragment implements OfferAdapter.Ite
     private final IFacade facade;
     private ArrayList<Offer> offers;
 
-    public OffersFragmentActivity() {
-        this.facade = new Facade();
+    public OffersFragmentActivity(IFacade facade) {
+        this.facade = facade;
     }
 
     @Nullable

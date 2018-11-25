@@ -1,5 +1,7 @@
 package dk.softwareengineering.shoppingoffer;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,8 +12,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import java.util.ArrayList;
+import java.util.List;
+
+import Repository.ISessionRepository;
+import Repository.SharedPreferenceRepository;
 import businessLayer.Facade;
 import businessLayer.IFacade;
+import domain.Coupon;
 import domain.Offer;
 
 
@@ -21,19 +28,24 @@ public class CouponsFragmentActivity extends Fragment implements  MyCouponsAdapt
     private MyCouponsAdapter adapter;
     private final IFacade facade;
     private ArrayList<Offer> offers;
-
+    public static Context contextOfApplication;
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-    public CouponsFragmentActivity() {
-        this.facade = new Facade();
+    @SuppressLint("ValidFragment")
+    public CouponsFragmentActivity(IFacade facade) {
+
+        this.facade = facade;
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.activity_coupons_fragment, container, false);
+
+        // Retrieve user saved coupons
+        List<Coupon> coupons = facade.GetUserCoupons("sune@student.sdu.dk");
 
         // Data to populate the RecyclerView with
         ArrayList<Offer> offers = facade.getOffersByLatLong(55.55, 55.55);

@@ -1,5 +1,6 @@
 package Repository;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import domain.Offer;
@@ -12,4 +13,5 @@ public interface IOfferRepository {
     Offer getOfferById(int id);
     ArrayList<Offer> getOfferByIds(ArrayList<Integer>offerIds);
     ArrayList<Offer> getStoreOffers(Integer storeId);
+    void SaveOfferToUser(String userId, int offerId);
 }
