@@ -11,7 +11,7 @@ public class FakeUserFactory implements  IUserFactory {
             add(new User("sune@student.sdu.dk"));
             add(new User("anna@student.sdu.dk"));
             add(new User("veena@student.sdu.dk"));
-            add(new User("anna@student.sdu.dk"));
+            add(new User("admira@student.sdu.dk"));
        }};
     }
 
