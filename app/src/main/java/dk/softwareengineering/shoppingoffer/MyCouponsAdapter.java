@@ -2,25 +2,28 @@ package dk.softwareengineering.shoppingoffer;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import domain.Coupon;
 import domain.Offer;
 import java.util.List;
 
 
 public class MyCouponsAdapter extends RecyclerView.Adapter<MyCouponsAdapter.ViewHolder> {
 
-    private List<Offer> mOffers;
+    private List<Coupon> coupons;
     private LayoutInflater mInflater;
     private MyCouponsAdapter.ItemClickListener mClickListener;
     private Context context;
 
-    public MyCouponsAdapter(Context context, List<Offer> mOffers) {
+    public MyCouponsAdapter(Context context, List<Coupon> coupons) {
         this.mInflater = LayoutInflater.from(context);
-        this.mOffers = mOffers;
+        this.coupons = coupons;
         this.context = context;
     }
 
@@ -32,7 +35,10 @@ public class MyCouponsAdapter extends RecyclerView.Adapter<MyCouponsAdapter.View
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        Offer offer = mOffers.get(position);
+        Coupon coupon= coupons.get(position);
+        Offer offer = coupon.getOffer();
+
+        Log.i("Imagepath", offer.getImagePath());
         int imageResource = context.getResources().getIdentifier("@drawable/"+offer.getImagePath(), null, context.getPackageName());
         String mOfferTitle = offer.getTitle();
         double mOfferDiscount = offer.getDiscount();
@@ -48,7 +54,7 @@ public class MyCouponsAdapter extends RecyclerView.Adapter<MyCouponsAdapter.View
 
     @Override
     public int getItemCount() {
-        return mOffers.size();
+        return coupons.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -77,8 +83,8 @@ public class MyCouponsAdapter extends RecyclerView.Adapter<MyCouponsAdapter.View
     }
 
     // convenience method for getting data at click position
-    public Offer getItem(int id) {
-        return mOffers.get(id);
+    public Coupon getItem(int id) {
+        return coupons.get(id);
     }
 
     // allows clicks events to be caught
