@@ -25,6 +25,7 @@ import domain.Offer;
 public class DetailedOfferActivity extends AppCompatActivity {
 
     private IFacade facade;
+    private int offerId;
     public static Context contextOfApplication;
 
     public DetailedOfferActivity() {
@@ -61,7 +62,7 @@ public class DetailedOfferActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 //ToDo: insert userId and the offer Id
-                facade.SaveOfferToUser("sune@student.sdu.dk",23);
+                facade.SaveOfferToUser("sune@student.sdu.dk",offerId);
                 Intent intent = new Intent(DetailedOfferActivity.this, MyCouponsActivity.class);
                 startActivity(intent);
             }
@@ -72,7 +73,7 @@ public class DetailedOfferActivity extends AppCompatActivity {
         savedInstanceState = intent.getExtras();
 
         if (savedInstanceState != null){
-            int offerId = (Integer) savedInstanceState.getInt("offerId");
+            offerId = (Integer) savedInstanceState.getInt("offerId");
             Offer offer = facade.getOfferById(offerId);
             int imageResource = getResources().getIdentifier("@drawable/"+offer.getImagePath(), null, this.getPackageName());
             img_offerImage.setImageResource(imageResource);
