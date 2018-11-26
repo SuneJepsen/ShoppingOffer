@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,7 @@ import domain.Coupon;
 import domain.Offer;
 
 
+@SuppressLint("ValidFragment")
 public class CouponsFragmentActivity extends Fragment implements  MyCouponsAdapter.ItemClickListener {
 
     private View rootView;
@@ -47,6 +49,10 @@ public class CouponsFragmentActivity extends Fragment implements  MyCouponsAdapt
         // Retrieve user saved coupons
         List<Coupon> coupons = facade.GetUserCoupons("sune@student.sdu.dk");
 
+        for (Coupon item : coupons) {
+            Log.i("Coupon ", item.getOffer().getTitle());
+        }
+
         // Data to populate the RecyclerView with
         ArrayList<Offer> offers = facade.getOffersByLatLong(55.55, 55.55);
 
@@ -54,7 +60,7 @@ public class CouponsFragmentActivity extends Fragment implements  MyCouponsAdapt
         RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.rv_coupons);
         LinearLayoutManager verticalLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(verticalLayoutManager);
-        adapter = new MyCouponsAdapter(rootView.getContext(), offers);
+        adapter = new MyCouponsAdapter(rootView.getContext(), coupons);
         adapter.setClickListener(this);
         recyclerView.setAdapter(adapter);
         return rootView;
@@ -63,9 +69,8 @@ public class CouponsFragmentActivity extends Fragment implements  MyCouponsAdapt
     @Override
     public void onItemClick(View view, int position) {
         Intent intent = new Intent(getContext(), DetailedOfferActivity.class);
-        Offer offer = adapter.getItem(position);
-        int offerId = offer.getId();
-        intent.putExtra("offerId", offerId);
+        Coupon coupon = adapter.getItem(position);
+        intent.putExtra("offerId", coupon.getOffer().getId());
         startActivity(intent);
     }
 }

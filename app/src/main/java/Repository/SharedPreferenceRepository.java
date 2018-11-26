@@ -38,6 +38,10 @@ public class SharedPreferenceRepository implements ISessionRepository {
 
         List<Coupon> coupons  = gson.fromJson(couponsJson, couponListType);
 
+        for (Coupon item : coupons) {
+            Log.i("CouponFromShared ", item.getOffer().getTitle());
+        }
+
         return coupons;
     }
 
@@ -48,7 +52,7 @@ public class SharedPreferenceRepository implements ISessionRepository {
         if(coupons== null)
             coupons = new ArrayList<Coupon>();
 
-        coupons.add(new Coupon( new Date(), offer));
+        coupons.add(new Coupon( GenerateRandomInt (1, 100), new Date(), offer));
 
         String json = gson.toJson(coupons);
 
@@ -73,5 +77,9 @@ public class SharedPreferenceRepository implements ISessionRepository {
         Log.i("GetUserCoupons, userId: ", userId);
 
         return coupons;
+    }
+
+    private int GenerateRandomInt(int min, int max){
+        return min + (int)(Math.random() * ((max - min) + 1));
     }
 }

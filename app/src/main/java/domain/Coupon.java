@@ -9,8 +9,17 @@ public class Coupon {
     private Boolean Sold;
     private Offer Offer;
 
-    public Coupon(Date createdDate, domain.Offer offer) {
+    public Coupon(int id, Date createdDate, domain.Offer offer) {
         CreatedDate = createdDate;
         Offer = offer;
+        Id = id;
+    }
+
+    public domain.Offer getOffer() {
+        return Offer;
+    }
+
+    public int getId() {
+        return Id;
     }
 }
