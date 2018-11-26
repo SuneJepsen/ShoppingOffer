@@ -1,5 +1,6 @@
 package dk.softwareengineering.shoppingoffer;
 
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Location;
 
@@ -30,6 +31,16 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import android.view.View;
 import android.widget.Button;
 
+import java.io.IOException;
+
+import Repository.FakeOfferRepository;
+import Repository.FakeStoreFactory;
+import Repository.FakeUserFactory;
+import Repository.ISessionRepository;
+import Repository.SharedPreferenceRepository;
+import businessLayer.Facade;
+import domain.Offer;
+
 
 /**
  * @TODO Comment and comment purpose of class
@@ -46,9 +57,31 @@ public class HomeScreenActivity extends AppCompatActivity implements OnMapReadyC
     private Marker marker;
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
+    public static Context contextOfApplication;
+    private Facade facade;
+
+    public HomeScreenActivity() {
+
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        /*
+        Offer offer = facade.getOfferById(23);
+
+        contextOfApplication = getApplicationContext();
+
+        ISessionRepository session = new SharedPreferenceRepository(contextOfApplication);
+
+        session.SaveOfferToUser("sune@student.sdu.dk",offer);
+
+        */
+
+        contextOfApplication = getApplicationContext();
+        ISessionRepository session = new SharedPreferenceRepository(contextOfApplication);
+        this.facade = new Facade(session);
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homescreen);
         fragmentManager = getSupportFragmentManager();
@@ -78,7 +111,7 @@ public class HomeScreenActivity extends AppCompatActivity implements OnMapReadyC
     }
 
     private void addOffersFragment(){
-        OffersFragmentActivity offersFragmentActivity = new OffersFragmentActivity();
+        OffersFragmentActivity offersFragmentActivity = new OffersFragmentActivity(facade);
         fragmentTransaction.add(R.id.offersContainer, offersFragmentActivity);
         fragmentTransaction.commit();
     }
