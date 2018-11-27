@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/action_map"
+        android:icon="@drawable/ic_map"
+        android:title="@string/action_map_title" />
+    <item
+        android:id="@+id/action_coupons"
+        android:icon="@drawable/ic_coupons"
+        android:title="@string/action_coupons_title" />
+    <item
+        android:id="@+id/action_profile"
+        android:icon="@drawable/ic_profile"
+        android:title="@string/action_profile_title" />
+</menu>

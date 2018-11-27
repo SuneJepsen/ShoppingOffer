@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -21,8 +22,6 @@ import android.util.Log;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.Geofence;
-import com.google.android.gms.location.GeofenceStatusCodes;
-import com.google.android.gms.location.GeofencingEvent;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
@@ -36,10 +35,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import android.view.View;
-import android.widget.Button;
+import android.view.MenuItem;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -58,7 +55,7 @@ import Repository.SharedPreferenceRepository;
  * @TODO Comment and comment purpose of class
  */
 public class HomeScreenActivity extends AppCompatActivity implements OnMapReadyCallback,GoogleApiClient.ConnectionCallbacks,
-        GoogleApiClient.OnConnectionFailedListener, LocationListener {
+        GoogleApiClient.OnConnectionFailedListener, LocationListener, BottomNavigationView.OnNavigationItemSelectedListener {
     public static final String ACTION = "GeofenceIntentService";
     private static final String TAG = "GoogleMaps";
     private static final int UPDATE_INTERVAL = 1000, FASTEST_INTERVAL = 1000 ;
@@ -100,6 +97,10 @@ public class HomeScreenActivity extends AppCompatActivity implements OnMapReadyC
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homescreen);
+        setTitle(getResources().getString(R.string.title_activity_HomeScreen));
+        BottomNavigationView navView = (BottomNavigationView)findViewById(R.id.navigation_home);
+        navView.getMenu().getItem(0).setChecked(true);
+        navView.setOnNavigationItemSelectedListener(this);
 
         contextOfApplication = getApplicationContext();
         ISessionRepository session = new SharedPreferenceRepository(contextOfApplication);
@@ -109,7 +110,6 @@ public class HomeScreenActivity extends AppCompatActivity implements OnMapReadyC
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
         addOffersFragment();
-        setupMenuBar();
 
         mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -170,22 +170,13 @@ public class HomeScreenActivity extends AppCompatActivity implements OnMapReadyC
         }
     }
 
-    private void setupMenuBar() {
-        // Menu go to MyCoupons
-        Button btn_myCoupons = (Button) findViewById(R.id.btn_myCoupons);
-        btn_myCoupons.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(HomeScreenActivity.this, MyCouponsActivity.class);
-                startActivity(i);
-            }
-        });
-    }
-
     private void addOffersFragment(){
         OffersFragmentActivity offersFragmentActivity = new OffersFragmentActivity(facade);
         fragmentTransaction.add(R.id.offersContainer, offersFragmentActivity);
+        fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
+
+
     }
 
     /**
@@ -290,5 +281,24 @@ public class HomeScreenActivity extends AppCompatActivity implements OnMapReadyC
         marker = mMap.addMarker(new MarkerOptions().position(current_position).title("Current Position"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(current_position));
         Log.i("GoogleMaps", "current location changed: " + location.getLatitude() + ", " + location.getLongitude());
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        Intent intent = null;
+        switch (item.getItemId()) {
+            case R.id.action_coupons:
+                intent = new Intent(getBaseContext(), MyCouponsActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.action_profile:
+                intent = new Intent(getBaseContext(), ProfileActivity.class);
+                startActivity(intent);
+                break;
+            default:
+                break;
+        }
+
+        return true;
     }
 }
