@@ -1,6 +1,8 @@
 package dk.softwareengineering.shoppingoffer;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.location.Location;
 
@@ -8,17 +10,18 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.Geofence;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
@@ -26,27 +29,26 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.Circle;
+import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.FrameLayout;
-import android.widget.LinearLayout;
-import android.widget.ScrollView;
 
-import java.io.IOException;
-import java.util.ResourceBundle;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-import Repository.FakeOfferRepository;
-import Repository.FakeStoreFactory;
-import Repository.FakeUserFactory;
+import businessLayer.Facade;
+import businessLayer.IFacade;
+import domain.Store;
+import geofence.GoogleGeofence;
+import geofence.IGeofence;
+
 import Repository.ISessionRepository;
 import Repository.SharedPreferenceRepository;
-import businessLayer.Facade;
-import domain.Offer;
 
 
 /**
@@ -54,7 +56,8 @@ import domain.Offer;
  */
 public class HomeScreenActivity extends AppCompatActivity implements OnMapReadyCallback,GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener, LocationListener, BottomNavigationView.OnNavigationItemSelectedListener {
-
+    public static final String ACTION = "GeofenceIntentService";
+    private static final String TAG = "GoogleMaps";
     private static final int UPDATE_INTERVAL = 1000, FASTEST_INTERVAL = 1000 ;
     private GoogleMap mMap;
     private GoogleApiClient googleApiClient;
@@ -64,12 +67,19 @@ public class HomeScreenActivity extends AppCompatActivity implements OnMapReadyC
     private Marker marker;
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
+    private IFacade facade;
+    private IGeofence googleGeofence;
+    private List<Store> stores;
     public static Context contextOfApplication;
-    private Facade facade;
+    private Map<Integer, Marker> storeMarkers;
+    private Map<Integer, Circle> storeCircles;
+    private int strokeColor = 0xffff0000;
+    private int shadeColor = 0x44ff0000;
 
     public HomeScreenActivity() {
 
     }
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -84,10 +94,6 @@ public class HomeScreenActivity extends AppCompatActivity implements OnMapReadyC
 
         */
 
-        contextOfApplication = getApplicationContext();
-        ISessionRepository session = new SharedPreferenceRepository(contextOfApplication);
-        this.facade = new Facade(session);
-
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homescreen);
@@ -95,6 +101,11 @@ public class HomeScreenActivity extends AppCompatActivity implements OnMapReadyC
         BottomNavigationView navView = (BottomNavigationView)findViewById(R.id.navigation_home);
         navView.getMenu().getItem(0).setChecked(true);
         navView.setOnNavigationItemSelectedListener(this);
+
+        contextOfApplication = getApplicationContext();
+        ISessionRepository session = new SharedPreferenceRepository(contextOfApplication);
+        this.facade = new Facade(session);
+        stores = facade.getStores(0,0);
 
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
@@ -107,6 +118,56 @@ public class HomeScreenActivity extends AppCompatActivity implements OnMapReadyC
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this).build();
         googleApiClient.connect();
+
+        storeMarkers = new HashMap<>();
+        storeCircles = new HashMap<>();
+
+        LocalBroadcastManager.getInstance(this).registerReceiver(messageReceiver,
+                new IntentFilter(ACTION));
+
+    }
+
+    private BroadcastReceiver messageReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Log.d(TAG, "Got intent");
+
+            Log.i(TAG, "result " +  intent.getIntExtra("resultCode", 10000));
+            Log.i(TAG, "store " + intent.getStringExtra("storeId"));
+            String storeId = intent.getStringExtra("storeId");
+            int transition = intent.getIntExtra("resultValue", 10000);
+            Log.i(TAG, "result " + intent.getIntExtra("resultValue", 10000));
+
+            for (Store s : stores) {
+                if (s.getId() == Integer.valueOf(storeId)) {
+                    if (transition == Geofence.GEOFENCE_TRANSITION_ENTER || transition == Geofence.GEOFENCE_TRANSITION_DWELL) {
+                        LatLng store_position = new LatLng(s.getLocation().latitude, s.getLocation().longitude);
+                        storeMarkers.put(s.getId(), mMap.addMarker(new MarkerOptions().position(store_position).title(s.getName())));
+                        CircleOptions circleOptions = new CircleOptions().center(store_position).radius(20).fillColor(shadeColor).strokeColor(strokeColor).strokeWidth(2);
+                        storeCircles.put(s.getId(), mMap.addCircle(circleOptions));
+                    } else if (transition == Geofence.GEOFENCE_TRANSITION_EXIT) {
+                        storeMarkers.get(s.getId()).remove();
+                        storeMarkers.remove(s.getId());
+                        storeCircles.get(s.getId()).remove();
+                        storeCircles.remove(s.getId());
+                    }
+                    break;
+                }
+            }
+        }
+    };
+
+    @Override
+    protected void onDestroy() {
+        // Unregister since the activity is about to be closed.
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(messageReceiver);
+        super.onDestroy();
+    }
+
+    private void setupGeofence() {
+        for (Store store : facade.getStores(0,0)) {
+            googleGeofence.attachGeofences(store);
+        }
     }
 
     private void addOffersFragment(){
@@ -168,7 +229,9 @@ public class HomeScreenActivity extends AppCompatActivity implements OnMapReadyC
         if (ContextCompat.checkSelfPermission(this.getApplicationContext(),
                 android.Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
+            Log.i(TAG, "permission already granted");
             mapFragment.getMapAsync(this);
+            setupGeofence();
         } else {
             ActivityCompat.requestPermissions(this,
                     new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
@@ -185,7 +248,9 @@ public class HomeScreenActivity extends AppCompatActivity implements OnMapReadyC
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Log.i(TAG, "permissions granted");
                     mapFragment.getMapAsync(this);
+                    setupGeofence();
                 }
             }
         }
@@ -193,7 +258,10 @@ public class HomeScreenActivity extends AppCompatActivity implements OnMapReadyC
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
+        Log.i(TAG, "conntected");
+        googleGeofence = new GoogleGeofence(this, googleApiClient, 1000, 5);
         getLocationPermission();
+
     }
 
     @Override
