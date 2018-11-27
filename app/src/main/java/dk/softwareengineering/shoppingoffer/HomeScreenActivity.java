@@ -114,6 +114,8 @@ public class HomeScreenActivity extends AppCompatActivity implements OnMapReadyC
         OffersFragmentActivity offersFragmentActivity = new OffersFragmentActivity(facade);
         fragmentTransaction.add(R.id.offersContainer, offersFragmentActivity);
         fragmentTransaction.commit();
+
+        
     }
 
     /**
