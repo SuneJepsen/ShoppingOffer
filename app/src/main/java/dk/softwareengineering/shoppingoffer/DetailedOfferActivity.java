@@ -1,14 +1,24 @@
 package dk.softwareengineering.shoppingoffer;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import Repository.ISessionRepository;
+import Repository.SharedPreferenceRepository;
 import businessLayer.Facade;
 import businessLayer.IFacade;
+import domain.Coupon;
 import domain.Offer;
 
 /**
@@ -16,16 +26,35 @@ import domain.Offer;
  */
 public class DetailedOfferActivity extends AppCompatActivity {
 
-    private final IFacade facade;
+    private IFacade facade;
+    private int offerId;
+    public static Context contextOfApplication;
 
     public DetailedOfferActivity() {
-        this.facade = new Facade();
+
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
+        contextOfApplication = getApplicationContext();
+        ISessionRepository session = new SharedPreferenceRepository(contextOfApplication);
+        this.facade = new Facade(session);
+
+        /*contextOfApplication = getApplicationContext();
+
+        ISessionRepository session = new SharedPreferenceRepository(contextOfApplication);
+
+        List<Coupon> coupons  = session.GetUserCoupons("sune@student.sdu.dk");
+        */
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detailed_offer);
+
+
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = preferences.edit();
 
         ImageView img_offerImage = (ImageView) findViewById(R.id.img_offerImage);
         TextView txt_offerTitle = (TextView) findViewById(R.id.txt_offerTitle);
@@ -37,7 +66,11 @@ public class DetailedOfferActivity extends AppCompatActivity {
         btn_reserve.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                //ToDo: insert userId and the offer Id
+                facade.SaveOfferToUser("sune@student.sdu.dk",offerId);
                 Intent intent = new Intent(DetailedOfferActivity.this, MyCouponsActivity.class);
+
                 startActivity(intent);
             }
         });
@@ -47,7 +80,7 @@ public class DetailedOfferActivity extends AppCompatActivity {
         savedInstanceState = intent.getExtras();
 
         if (savedInstanceState != null){
-            int offerId = (Integer) savedInstanceState.getInt("offerId");
+            offerId = (Integer) savedInstanceState.getInt("offerId");
             Offer offer = facade.getOfferById(offerId);
             int imageResource = getResources().getIdentifier("@drawable/"+offer.getImagePath(), null, this.getPackageName());
             img_offerImage.setImageResource(imageResource);

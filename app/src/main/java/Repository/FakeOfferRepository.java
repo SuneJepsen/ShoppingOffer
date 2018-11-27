@@ -1,19 +1,31 @@
 package Repository;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
+import com.google.gson.Gson;
+
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import domain.Offer;
 import domain.Store;
+import domain.User;
 
 /**
  * Created by Sune Jepsen on 27-10-2018.
  */
 
 public class FakeOfferRepository implements IOfferRepository {
+    private final ArrayList<User> users;
+    private final ISessionRepository prefRepo;
     private ArrayList<Offer> offers;
 
-    public FakeOfferRepository(IStoreFactory storeFactory) {
+    public FakeOfferRepository(IStoreFactory storeFactory, IUserFactory userFactory, ISessionRepository prefRepo) {
         this.offers = storeFactory.getOffers();
+        this.users = userFactory.getUsers();
+        this.prefRepo = prefRepo;
     }
 
     @Override
@@ -60,4 +72,14 @@ public class FakeOfferRepository implements IOfferRepository {
         else
             return storeOfferToReturn;
     }
+
+    public void SaveOfferToUser(String userId, int offerId){
+        Offer offer = getOfferById(offerId);
+        prefRepo.SaveOfferToUser(userId,offer);
+    }
+
+
+
+
+
 }
