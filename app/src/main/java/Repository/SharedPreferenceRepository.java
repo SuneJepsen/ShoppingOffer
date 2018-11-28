@@ -63,7 +63,7 @@ public class SharedPreferenceRepository implements ISessionRepository {
         editor.commit();
 
 
-        Log.i("SaveOfferToUser, userId: ", userId);
+        Log.i("saveOfferToUser, userId: ", userId);
 
     }
 
@@ -74,7 +74,7 @@ public class SharedPreferenceRepository implements ISessionRepository {
             return new ArrayList<Coupon>();
         }
 
-        Log.i("GetUserCoupons, userId: ", userId);
+        Log.i("getUserCoupons, userId: ", userId);
 
         return coupons;
     }

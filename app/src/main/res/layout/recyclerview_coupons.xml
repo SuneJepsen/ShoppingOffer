@@ -7,13 +7,13 @@
     android:layout_marginBottom="8dp">
 
     <android.support.v7.widget.CardView
-        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        xmlns:card="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        card_view:cardCornerRadius="6dp"
-        card_view:cardElevation="6dp"
-        card_view:cardPreventCornerOverlap="false">
+        card:cardCornerRadius="6dp"
+        card:cardElevation="6dp"
+        card:cardPreventCornerOverlap="false">
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
@@ -26,8 +26,8 @@
                 android:layout_height="wrap_content"
                 android:text="storeText"
                 android:textSize="18sp"
-                card_view:layout_constraintStart_toStartOf="@+id/txt_offerTitle"
-                card_view:layout_constraintTop_toBottomOf="@+id/txt_offerTitle" />
+                card:layout_constraintStart_toStartOf="@+id/txt_offerTitle"
+                card:layout_constraintTop_toBottomOf="@+id/txt_offerTitle" />
 
             <TextView
                 android:id="@+id/txt_timelimit"
@@ -37,8 +37,8 @@
                 android:layout_marginEnd="8dp"
                 android:text="Time Limit"
                 android:textSize="18sp"
-                card_view:layout_constraintBottom_toBottomOf="parent"
-                card_view:layout_constraintEnd_toStartOf="@+id/txt_offerTimer" />
+                card:layout_constraintBottom_toBottomOf="parent"
+                card:layout_constraintEnd_toStartOf="@+id/txt_offerTimer" />
 
             <TextView
                 android:id="@+id/txt_offerTimer"
@@ -48,8 +48,8 @@
                 android:layout_marginBottom="16dp"
                 android:text="99:99"
                 android:textSize="18sp"
-                card_view:layout_constraintBottom_toBottomOf="parent"
-                card_view:layout_constraintEnd_toEndOf="parent" />
+                card:layout_constraintBottom_toBottomOf="parent"
+                card:layout_constraintEnd_toEndOf="parent" />
 
             <TextView
                 android:id="@+id/txt_offerStock"
@@ -59,8 +59,8 @@
                 android:layout_marginBottom="16dp"
                 android:text="9999"
                 android:textSize="18sp"
-                card_view:layout_constraintBottom_toBottomOf="parent"
-                card_view:layout_constraintStart_toEndOf="@+id/txt_stock" />
+                card:layout_constraintBottom_toBottomOf="parent"
+                card:layout_constraintStart_toEndOf="@+id/txt_stock" />
 
             <TextView
                 android:id="@+id/txt_offerPrice"
@@ -69,9 +69,9 @@
                 android:layout_marginEnd="8dp"
                 android:text="99999"
                 android:textSize="28sp"
-                app:layout_constraintEnd_toStartOf="@+id/txt_currency"
-                app:layout_constraintTop_toBottomOf="@+id/image_container"
-                card_view:layout_constraintTop_toTopOf="@+id/txt_store" />
+                card:layout_constraintEnd_toStartOf="@+id/txt_currency"
+                card:layout_constraintTop_toBottomOf="@+id/image_container"
+                card:layout_constraintTop_toTopOf="@+id/txt_store" />
 
             <TextView
                 android:id="@+id/txt_offerTitle"
@@ -84,9 +84,9 @@
                 android:textColor="@color/titleColor"
                 android:textSize="26sp"
                 android:textStyle="bold"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/image_container" />
+                card:layout_constraintHorizontal_bias="0.0"
+                card:layout_constraintStart_toStartOf="parent"
+                card:layout_constraintTop_toBottomOf="@+id/image_container" />
 
             <RelativeLayout
                 android:id="@+id/image_container"
@@ -98,9 +98,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="250dp"
                     android:scaleType="centerCrop"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    card:layout_constraintEnd_toEndOf="parent"
+                    card:layout_constraintStart_toStartOf="parent"
+                    card:layout_constraintTop_toTopOf="parent" />
                 <TextView
                     android:id="@+id/txt_offerDiscount"
                     android:layout_width="60dp"
@@ -124,8 +124,8 @@
                 android:layout_marginEnd="20dp"
                 android:text="kr"
                 android:textSize="28sp"
-                card_view:layout_constraintEnd_toEndOf="@+id/image_container"
-                card_view:layout_constraintTop_toTopOf="@+id/txt_offerPrice" />
+                card:layout_constraintEnd_toEndOf="@+id/image_container"
+                card:layout_constraintTop_toTopOf="@+id/txt_offerPrice" />
 
             <TextView
                 android:id="@+id/txt_stock"
@@ -135,9 +135,9 @@
                 android:layout_marginBottom="16dp"
                 android:text="Stock"
                 android:textSize="18sp"
-                card_view:layout_constraintBottom_toBottomOf="parent"
-                card_view:layout_constraintStart_toStartOf="@+id/txt_store"
-                card_view:layout_constraintTop_toBottomOf="@+id/txt_offerPrice" />
+                card:layout_constraintBottom_toBottomOf="parent"
+                card:layout_constraintStart_toStartOf="@+id/txt_store"
+                card:layout_constraintTop_toBottomOf="@+id/txt_offerPrice" />
 
         </android.support.constraint.ConstraintLayout>
     </android.support.v7.widget.CardView>

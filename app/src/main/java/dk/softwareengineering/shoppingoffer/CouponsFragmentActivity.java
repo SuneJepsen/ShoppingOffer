@@ -23,6 +23,7 @@ import businessLayer.Facade;
 import businessLayer.IFacade;
 import domain.Coupon;
 import domain.Offer;
+import domain.Store;
 
 
 @SuppressLint("ValidFragment")
@@ -48,13 +49,6 @@ public class CouponsFragmentActivity extends Fragment implements  MyCouponsAdapt
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.activity_coupons_fragment, container, false);
 
-        // Retrieve user saved coupons
-        List<Coupon> coupons = facade.GetUserCoupons("sune@student.sdu.dk");
-
-        for (Coupon item : coupons) {
-            Log.i("Coupon ", item.getOffer().getTitle());
-        }
-
         // Data to populate the RecyclerView with
         //ArrayList<Offer> offers = facade.getOffersByLatLong(55.55, 55.55);
 
@@ -68,7 +62,7 @@ public class CouponsFragmentActivity extends Fragment implements  MyCouponsAdapt
         RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.rv_coupons);
         LinearLayoutManager verticalLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(verticalLayoutManager);
-        adapter = new MyCouponsAdapter(rootView.getContext(), coupons);
+        adapter = new MyCouponsAdapter(rootView.getContext(), facade);
         adapter.setClickListener(this);
         recyclerView.setAdapter(adapter);
         return rootView;
