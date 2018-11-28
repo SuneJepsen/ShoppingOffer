@@ -90,7 +90,7 @@ public class HomeScreenActivity extends AppCompatActivity implements OnMapReadyC
 
         ISessionRepository session = new SharedPreferenceRepository(contextOfApplication);
 
-        session.SaveOfferToUser("sune@student.sdu.dk",offer);
+        session.saveOfferToUser("sune@student.sdu.dk",offer);
 
         */
 

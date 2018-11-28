@@ -52,10 +52,21 @@ public class Facade implements IFacade {
         return this.storeRepository.getStoresByIds(new ArrayList<Integer>(){{add(1);add(2);add(3);add(4);}});
     }
 
-    public void SaveOfferToUser(String userId, int offerId){
+    @Override
+    public Store getStoreById(int storeId) {
+        ArrayList<Integer> storeIds = new ArrayList<Integer>();
+        storeIds.add(storeId);
+        ArrayList<Store> stores = this.storeRepository.getStoresByIds(storeIds);
+        return stores.size() > 0 ? stores.get(0) : null ;
+    }
+
+    @Override
+    public void saveOfferToUser(String userId, int offerId){
         offerRepository.SaveOfferToUser(userId,offerId);
     }
-    public List<Coupon> GetUserCoupons(String userId){
+
+    @Override
+    public List<Coupon> getUserCoupons(String userId){
         return couponRepository.GetUserCoupons(userId);
     }
 }

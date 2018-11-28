@@ -9,22 +9,29 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import businessLayer.IFacade;
 import domain.Coupon;
 import domain.Offer;
+import domain.Store;
+
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 
 public class MyCouponsAdapter extends RecyclerView.Adapter<MyCouponsAdapter.ViewHolder> {
 
     private List<Coupon> coupons;
+    private IFacade facade;
     private LayoutInflater mInflater;
     private MyCouponsAdapter.ItemClickListener mClickListener;
     private Context context;
 
-    public MyCouponsAdapter(Context context, List<Coupon> coupons) {
+    public MyCouponsAdapter(Context context, IFacade facade) {
         this.mInflater = LayoutInflater.from(context);
-        this.coupons = coupons;
+        this.facade = facade;
         this.context = context;
+        this.coupons = facade.getUserCoupons("sune@student.sdu.dk");
     }
 
     @Override
@@ -35,7 +42,7 @@ public class MyCouponsAdapter extends RecyclerView.Adapter<MyCouponsAdapter.View
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        Coupon coupon= coupons.get(position);
+        Coupon coupon = coupons.get(position);
         Offer offer = coupon.getOffer();
 
         Log.i("Imagepath", offer.getImagePath());
@@ -43,13 +50,19 @@ public class MyCouponsAdapter extends RecyclerView.Adapter<MyCouponsAdapter.View
         String mOfferTitle = offer.getTitle();
         double mOfferDiscount = offer.getDiscount();
         double mOfferPrice = offer.getPrice();
-        int mAmmount = offer.getAmountCounter();
+        int mAmount = offer.getAmountCounter();
+        String mOfferStore = facade.getStoreById(offer.getStoreId()).getName();
+        String mOfferTimeLimit = new SimpleDateFormat("hh:mm").format(offer.getTimeCounter());
+        int mOfferStock = offer.getAmountCounter();
 
         holder.img_offerImage.setImageResource(imageResource);
         holder.txt_offerTitle.setText(mOfferTitle);
         holder.txt_offerDiscount.setText("-"+ Double.toString(mOfferDiscount) + "%");
-        holder.txt_offerPrice.setText(Double.toString(mOfferPrice));
-        holder.txt_stock.setText(Integer.toString(mAmmount));
+        holder.txt_offerPrice.setText(new DecimalFormat("#.0#").format(mOfferPrice));
+        holder.txt_stock.setText(Integer.toString(mAmount));
+        holder.txt_store.setText(mOfferStore);
+        holder.txt_offerStock.setText(String.valueOf(mOfferStock));
+        holder.txt_offerTimer.setText("kl " + mOfferTimeLimit);
     }
 
     @Override
@@ -59,10 +72,8 @@ public class MyCouponsAdapter extends RecyclerView.Adapter<MyCouponsAdapter.View
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         ImageView img_offerImage;
-        TextView txt_offerTitle;
-        TextView txt_offerPrice;
-        TextView txt_offerDiscount;
-        TextView txt_stock;
+        TextView txt_offerTitle, txt_offerPrice, txt_offerDiscount, txt_stock, txt_store,
+            txt_offerTimer, txt_offerStock;
 
         public ViewHolder(View view) {
             super(view);
@@ -70,6 +81,9 @@ public class MyCouponsAdapter extends RecyclerView.Adapter<MyCouponsAdapter.View
             txt_offerTitle = itemView.findViewById(R.id.txt_offerTitle);
             txt_offerPrice = itemView.findViewById(R.id.txt_offerPrice);
             txt_offerDiscount = itemView.findViewById(R.id.txt_offerDiscount);
+            txt_store = itemView.findViewById(R.id.txt_store);
+            txt_offerTimer = itemView.findViewById(R.id.txt_offerTimer);
+            txt_offerStock = itemView.findViewById(R.id.txt_offerStock);
             txt_stock = itemView.findViewById(R.id.txt_offerStock);
             itemView.setOnClickListener(this);
         }

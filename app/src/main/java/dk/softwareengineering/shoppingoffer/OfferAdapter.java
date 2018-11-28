@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import domain.Offer;
@@ -51,7 +53,7 @@ public class OfferAdapter extends RecyclerView.Adapter<OfferAdapter.ViewHolder> 
         holder.img_offerImage.setImageResource(imageResource);
         holder.txt_offerTitle.setText(mOfferTitle);
         holder.txt_offerDiscount.setText("-"+ Double.toString(mOfferDiscount) + "%");
-        holder.txt_offerPrice.setText(Double.toString(mOfferPrice));
+        holder.txt_offerPrice.setText(new DecimalFormat("#.0#").format(mOfferPrice));
         holder.txt_offerDescription.setText(mOfferDescription);
     }
 
@@ -65,10 +67,8 @@ public class OfferAdapter extends RecyclerView.Adapter<OfferAdapter.ViewHolder> 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         ImageView img_offerImage;
-        TextView txt_offerTitle;
-        TextView txt_offerDescription;
-        TextView txt_offerPrice;
-        TextView txt_offerDiscount;
+        TextView txt_offerTitle, txt_offerDescription, txt_offerPrice, txt_offerDiscount;
+
 
         public ViewHolder(View itemView) {
             super(itemView);

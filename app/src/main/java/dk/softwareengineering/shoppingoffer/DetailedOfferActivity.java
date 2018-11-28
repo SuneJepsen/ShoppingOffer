@@ -11,18 +11,13 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import Repository.ISessionRepository;
 import Repository.SharedPreferenceRepository;
 import businessLayer.Facade;
 import businessLayer.IFacade;
-import domain.Coupon;
 import domain.Offer;
 
 /**
@@ -50,7 +45,7 @@ public class DetailedOfferActivity extends AppCompatActivity implements BottomNa
 
         ISessionRepository session = new SharedPreferenceRepository(contextOfApplication);
 
-        List<Coupon> coupons  = session.GetUserCoupons("sune@student.sdu.dk");
+        List<Coupon> coupons  = session.getUserCoupons("sune@student.sdu.dk");
         */
 
         super.onCreate(savedInstanceState);
@@ -75,7 +70,7 @@ public class DetailedOfferActivity extends AppCompatActivity implements BottomNa
             public void onClick(View v) {
 
                 //ToDo: insert userId and the offer Id
-                facade.SaveOfferToUser("sune@student.sdu.dk",offerId);
+                facade.saveOfferToUser("sune@student.sdu.dk",offerId);
                 Intent intent = new Intent(DetailedOfferActivity.this, MyCouponsActivity.class);
 
                 startActivity(intent);
