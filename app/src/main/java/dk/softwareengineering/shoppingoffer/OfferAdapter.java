@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import domain.Offer;
@@ -47,12 +49,18 @@ public class OfferAdapter extends RecyclerView.Adapter<OfferAdapter.ViewHolder> 
         String mOfferDescription = offer.getTitle();
         double mOfferDiscount = offer.getDiscount();
         double mOfferPrice = offer.getPrice();
+        String mOfferStore = offer.getStore().getName();
+        String mOfferTimeLimit = new SimpleDateFormat("hh:mm").format(offer.getTimeCounter());
+        int mOfferStock = offer.getAmountCounter();
 
         holder.img_offerImage.setImageResource(imageResource);
         holder.txt_offerTitle.setText(mOfferTitle);
+        holder.txt_store.setText(mOfferStore);
         holder.txt_offerDiscount.setText("-"+ Double.toString(mOfferDiscount) + "%");
-        holder.txt_offerPrice.setText(Double.toString(mOfferPrice));
+        holder.txt_offerPrice.setText(new DecimalFormat("#.0#").format(mOfferPrice));
         holder.txt_offerDescription.setText(mOfferDescription);
+        holder.txt_offerStock.setText(mOfferStock);
+        holder.txt_offerTimer.setText(new SimpleDateFormat("hh:mm").format(mOfferTimeLimit));
     }
 
     // total number of rows
@@ -65,10 +73,9 @@ public class OfferAdapter extends RecyclerView.Adapter<OfferAdapter.ViewHolder> 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         ImageView img_offerImage;
-        TextView txt_offerTitle;
-        TextView txt_offerDescription;
-        TextView txt_offerPrice;
-        TextView txt_offerDiscount;
+        TextView txt_offerTitle, txt_offerDescription, txt_offerPrice,
+                txt_offerDiscount, txt_store, txt_offerTimer, txt_offerStock;
+
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -77,6 +84,9 @@ public class OfferAdapter extends RecyclerView.Adapter<OfferAdapter.ViewHolder> 
             txt_offerDescription = itemView.findViewById(R.id.txt_offerDescription);
             txt_offerPrice = itemView.findViewById(R.id.txt_offerPrice);
             txt_offerDiscount = itemView.findViewById(R.id.txt_offerDiscount);
+            txt_store = itemView.findViewById(R.id.txt_store);
+            txt_offerTimer = itemView.findViewById(R.id.txt_offerTimer);
+            txt_offerStock = itemView.findViewById(R.id.txt_offerStock);
             itemView.setOnClickListener(this);
         }
 
