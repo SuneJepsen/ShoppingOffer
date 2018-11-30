@@ -19,6 +19,13 @@
             android:layout_height="fill_parent"
             android:fillViewport="true">
 
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                app:cardCornerRadius="6dp"
+                app:cardElevation="6dp"
+                app:cardPreventCornerOverlap="false">
             <android.support.constraint.ConstraintLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -27,9 +34,9 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
                 <ImageView
-                    android:id="@+id/img_offerImage"
+                    android:id="@+id/img_couponImage"
                     android:layout_width="386dp"
-                    android:layout_height="270dp"
+                    android:layout_height="300dp"
                     app:layout_constraintHorizontal_bias="0.501"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
@@ -37,7 +44,7 @@
                     app:srcCompat="@color/place_autocomplete_search_hint" />
 
                 <TextView
-                    android:id="@+id/txt_offerTitle"
+                    android:id="@+id/txt_couponTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="32dp"
@@ -45,33 +52,33 @@
                     android:text="Coupon Title"
                     android:textSize="24sp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/img_offerImage" />
+                    app:layout_constraintTop_toBottomOf="@+id/img_couponImage" />
                 <TextView
-                    android:id="@+id/txt_store"
+                    android:id="@+id/txt_couponstore"
                     android:layout_width="wrap_content"
                     android:layout_height="17dp"
                     android:layout_marginTop="8dp"
                     android:text="Store"
-                    app:layout_constraintLeft_toLeftOf="@id/txt_offerTitle"
-                    app:layout_constraintTop_toBottomOf="@+id/txt_offerTitle" />
+                    app:layout_constraintLeft_toLeftOf="@id/txt_couponTitle"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_couponTitle" />
                 <TextView
-                    android:id="@+id/txtPrice"
+                    android:id="@+id/txt_couponPrice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="48dp"
                     android:text="0 kr"
                     android:textSize="25sp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/txt_offerTitle" />
+                    app:layout_constraintTop_toTopOf="@+id/txt_couponTitle" />
 
                 <TextView
-                    android:id="@+id/txt_offerDescription"
+                    android:id="@+id/txt_couponDescription"
                     android:layout_width="wrap_content"
                     android:layout_height="17dp"
                     android:layout_marginTop="16dp"
                     android:text="Description"
-                    app:layout_constraintLeft_toLeftOf="@id/txt_store"
-                    app:layout_constraintTop_toBottomOf="@+id/txt_store" />
+                    app:layout_constraintLeft_toLeftOf="@id/txt_couponstore"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_couponstore" />
 
                 <Button
                     android:id="@+id/countDown"
@@ -92,9 +99,10 @@
                     android:layout_marginTop="32dp"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/txt_offerDescription"
-                    app:srcCompat="@drawable/QR_code" />
+                    app:layout_constraintTop_toTopOf="@id/txt_couponDescription"
+                    app:srcCompat="@drawable/qr_code" />
             </android.support.constraint.ConstraintLayout>
+            </android.support.v7.widget.CardView>
         </ScrollView>
     </android.support.constraint.ConstraintLayout>
 
@@ -107,7 +115,7 @@
         app:layout_constraintBottom_toBottomOf="parent">
 
         <android.support.design.widget.BottomNavigationView
-            android:id="@+id/navigation_offer"
+            android:id="@+id/navigation_coupon_detail"
             android:background="@android:color/white"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

@@ -70,9 +70,9 @@ public class CouponsFragmentActivity extends Fragment implements  MyCouponsAdapt
 
     @Override
     public void onItemClick(View view, int position) {
-        Intent intent = new Intent(getContext(), DetailedOfferActivity.class);
+        Intent intent = new Intent(getContext(), DetailedCouponActivity.class);
         Coupon coupon = adapter.getItem(position);
-        intent.putExtra("offerId", coupon.getOffer().getId());
+        intent.putExtra("couponId", coupon.getId());
         startActivity(intent);
     }
 }

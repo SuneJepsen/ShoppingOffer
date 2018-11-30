@@ -277,7 +277,9 @@ public class HomeScreenActivity extends AppCompatActivity implements OnMapReadyC
     @Override
     public void onLocationChanged(Location location) {
         LatLng current_position = new LatLng(location.getLatitude(), location.getLongitude());
-        marker.remove();
+        if (marker != null) {
+            marker.remove();
+        }
         marker = mMap.addMarker(new MarkerOptions().position(current_position).title("Current Position"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(current_position));
         Log.i("GoogleMaps", "current location changed: " + location.getLatitude() + ", " + location.getLongitude());

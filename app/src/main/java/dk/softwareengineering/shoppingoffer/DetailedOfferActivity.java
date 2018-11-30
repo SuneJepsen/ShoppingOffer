@@ -14,6 +14,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
+import java.text.SimpleDateFormat;
+
 import Repository.ISessionRepository;
 import Repository.SharedPreferenceRepository;
 import businessLayer.Facade;
@@ -50,7 +54,7 @@ public class DetailedOfferActivity extends AppCompatActivity implements BottomNa
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detailed_offer);
-        setTitle(getResources().getString(R.string.title_activity_Coupon));
+        setTitle(getResources().getString(R.string.title_activity_Offer));
         BottomNavigationView navView = (BottomNavigationView)findViewById(R.id.navigation_offer);
         navView.getMenu().getItem(1).setChecked(true);
         navView.setOnNavigationItemSelectedListener(this);
@@ -60,10 +64,11 @@ public class DetailedOfferActivity extends AppCompatActivity implements BottomNa
 
         ImageView img_offerImage = (ImageView) findViewById(R.id.img_offerImage);
         TextView txt_offerTitle = (TextView) findViewById(R.id.txt_offerTitle);
-
-        TextView txt_numberOfCoupons = (TextView) findViewById(R.id.txtNumberOfCoupons);
+        TextView txt_store = (TextView) findViewById(R.id.txt_store);
+        TextView txt_stock = (TextView) findViewById(R.id.txtStock);
         TextView txt_offerPrice = (TextView) findViewById(R.id.txtPrice);
-        TextView txt_timeLimit = (TextView) findViewById(R.id.txtTimeLimit);
+        TextView txt_description = (TextView) findViewById(R.id.txt_offerDescription);
+        TextView txt_deadline = (TextView) findViewById(R.id.txt_deadline);
         Button btn_reserve = (Button) findViewById(R.id.btnReserve);
         btn_reserve.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,9 +92,11 @@ public class DetailedOfferActivity extends AppCompatActivity implements BottomNa
             int imageResource = getResources().getIdentifier("@drawable/"+offer.getImagePath(), null, this.getPackageName());
             img_offerImage.setImageResource(imageResource);
             txt_offerTitle.setText(offer.getTitle());
-            txt_numberOfCoupons.setText(Integer.toString(offer.getAmountCounter()));
+            txt_store.setText(facade.getStoreById(offer.getStoreId()).getName());
+            txt_stock.setText(Integer.toString(offer.getAmountCounter()));
             txt_offerPrice.setText(Double.toString(offer.getPrice()));
-            txt_timeLimit.setText(offer.getTimeCounter().toString());
+            //txt_description.setText();
+            txt_deadline.setText(new SimpleDateFormat("hh:mm").format(offer.getTimeCounter()));
         }
 
     }
