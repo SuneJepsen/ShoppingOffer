@@ -30,6 +30,7 @@
                     android:id="@+id/img_offerImage"
                     android:layout_width="386dp"
                     android:layout_height="270dp"
+                    app:layout_constraintHorizontal_bias="0.501"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -39,19 +40,19 @@
                     android:id="@+id/txt_offerTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
+                    android:layout_marginLeft="32dp"
                     android:layout_marginTop="24dp"
-                    android:text="Offer Title"
+                    android:text="Coupon Title"
                     android:textSize="24sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/img_offerImage" />
                 <TextView
                     android:id="@+id/txt_store"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="17dp"
                     android:layout_marginTop="8dp"
                     android:text="Store"
-                    app:layout_constraintStart_toStartOf="@id/txt_offerTitle"
+                    app:layout_constraintLeft_toLeftOf="@id/txt_offerTitle"
                     app:layout_constraintTop_toBottomOf="@+id/txt_offerTitle" />
                 <TextView
                     android:id="@+id/txtPrice"
@@ -66,72 +67,33 @@
                 <TextView
                     android:id="@+id/txt_offerDescription"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="17dp"
                     android:layout_marginTop="16dp"
                     android:text="Description"
                     app:layout_constraintLeft_toLeftOf="@id/txt_store"
                     app:layout_constraintTop_toBottomOf="@+id/txt_store" />
 
-                <TextView
-                    android:id="@+id/txtStock_label"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="12dp"
-                    android:textSize="18dp"
-                    android:textStyle="bold"
-                    android:text="Stock"
-                    app:layout_constraintStart_toStartOf="@id/txt_offerDescription"
-                    app:layout_constraintTop_toBottomOf="@+id/txt_offerDescription"/>
-
-                <TextView
-                    android:id="@+id/txtStock"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:textSize="18dp"
-                    android:textStyle="bold"
-                    android:text="999"
-                    app:layout_constraintStart_toEndOf="@id/txtStock_label"
-                    app:layout_constraintTop_toTopOf="@+id/txtStock_label" />
-
-                <TextView
-                    android:id="@+id/txt_deadline_label"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:textSize="18dp"
-                    android:textStyle="bold"
-                    android:text="Time Limit"
-                    app:layout_constraintEnd_toStartOf="@id/txt_deadline"
-                    app:layout_constraintTop_toTopOf="@+id/txtStock_label" />
-
-                <TextView
-                    android:id="@+id/txt_deadline"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:textSize="18dp"
-                    android:textStyle="bold"
-                    android:text="Kl 00:00"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/txt_deadline_label" />
-
                 <Button
-                    android:id="@+id/btnReserve"
+                    android:id="@+id/countDown"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:layout_marginRight="16dp"
-                    android:layout_marginStart="288dp"
+                    android:layout_marginEnd="16dp"
                     android:layout_marginTop="16dp"
                     android:background="@color/greenColor"
-                    android:text="Reserve"
-                    app:layout_constraintBottom_toBottomOf="@+id/img_offerImage"
+                    android:clickable="false"
+                    android:text="00:00"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/img_qrcode"
+                    android:layout_width="386dp"
+                    android:layout_height="290dp"
+                    android:layout_marginTop="32dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/img_offerImage"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.0" />
+                    app:layout_constraintTop_toTopOf="@id/txt_offerDescription"
+                    app:srcCompat="@drawable/QR_code" />
             </android.support.constraint.ConstraintLayout>
         </ScrollView>
     </android.support.constraint.ConstraintLayout>
