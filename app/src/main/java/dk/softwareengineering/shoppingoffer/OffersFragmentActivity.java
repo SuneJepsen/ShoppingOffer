@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import businessLayer.Facade;
 import businessLayer.IFacade;
@@ -39,9 +40,6 @@ public class OffersFragmentActivity extends Fragment implements OfferAdapter.Ite
         //super.onCreateView(inflater, container, savedInstanceState);
         rootView = inflater.inflate(R.layout.activity_offers_fragment, container, false);
 
-        // Data to populate the RecyclerView with
-        ArrayList<Offer> offers = facade.getOffersByLatLong(55.55, 55.55);
-
         // Setup RecyclerView
         RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.rv_offers);
         LinearLayoutManager horizontalLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
@@ -50,7 +48,7 @@ public class OffersFragmentActivity extends Fragment implements OfferAdapter.Ite
         recyclerView.setItemViewCacheSize(20);
         recyclerView.setDrawingCacheEnabled(true);
         recyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
-        adapter = new OfferAdapter(rootView.getContext(), offers);
+        adapter = new OfferAdapter(rootView.getContext());
         adapter.setClickListener(this);
         recyclerView.setAdapter(adapter);
         return rootView;
@@ -63,6 +61,17 @@ public class OffersFragmentActivity extends Fragment implements OfferAdapter.Ite
         int offerId = offer.getId();
         intent.putExtra("offerId", offerId);
         startActivity(intent);
+    }
+
+    public void addOffers(int storeId) {
+        // Data to populate the RecyclerView with
+        List<Offer> offers = facade.getStoreOffers(storeId);
+        adapter.addOffers(offers);
+    }
+
+    public void removeOffers(int storeId) {
+        List<Offer> offers = facade.getStoreOffers(storeId);
+        adapter.removeOffers(offers);
     }
 
 }

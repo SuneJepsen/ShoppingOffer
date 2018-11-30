@@ -28,7 +28,7 @@ public class FakeStoreFactory implements IStoreFactory {
                 add(new Offer( 27, "New Autumn Set", 80, 55.367913,10.428155, 399, "newautumnset", new Date(), 100,  new Date(),2 ));
             }}));
 
-            add(new Store(3, "Company", new Date(), new LatLng(55.367913, 10.428155), new ArrayList<Offer>(){{
+            add(new Store(3, "Company", new Date(), new LatLng(55.3957872, 10.372331), new ArrayList<Offer>(){{
                 add(new Offer( 28, "Pants", 90, 55.367913,10.428155, 99.99, "pants", new Date(), 80,  new Date(), 3));
                 add(new Offer( 29, "Shirt", 50, 55.367913,10.428155, 99.99, "shirt", new Date(), 10,  new Date(), 3 ));
                 add(new Offer( 30, "New Autumn Set", 80, 55.367913,10.428155, 199.99, "newautumnset", new Date(), 100,  new Date(),3 ));
