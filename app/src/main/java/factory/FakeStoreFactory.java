@@ -1,4 +1,4 @@
-package Repository;
+package factory;
 
 import com.google.android.gms.maps.model.LatLng;
 

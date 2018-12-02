@@ -1,4 +1,4 @@
-package dk.softwareengineering.shoppingoffer;
+package dk.softwareengineering.activities;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

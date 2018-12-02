@@ -1,7 +1,8 @@
-package Repository;
+package repository;
 
 import java.util.List;
 import domain.Coupon;
+import session.ISessionRepository;
 
 
 public class FakeCouponRepository implements  ICouponRepository{
@@ -12,7 +13,6 @@ public class FakeCouponRepository implements  ICouponRepository{
     public FakeCouponRepository(ISessionRepository prefRepo) {
         this.prefRepo = prefRepo;
     }
-
 
     @Override
     public List<Coupon> GetUserCoupons(String userId) {

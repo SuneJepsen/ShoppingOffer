@@ -2,15 +2,15 @@ package businessLayer;
 import java.util.ArrayList;
 import java.util.List;
 
-import Repository.FakeCouponRepository;
-import Repository.FakeOfferRepository;
-import Repository.FakeStoreFactory;
-import Repository.FakeStoreRepository;
-import Repository.FakeUserFactory;
-import Repository.IOfferRepository;
-import Repository.ISessionRepository;
-import Repository.IStoreFactory;
-import Repository.IUserFactory;
+import repository.FakeCouponRepository;
+import repository.FakeOfferRepository;
+import factory.FakeStoreFactory;
+import repository.FakeStoreRepository;
+import factory.FakeUserFactory;
+import repository.IOfferRepository;
+import session.ISessionRepository;
+import factory.IStoreFactory;
+import factory.IUserFactory;
 import domain.Coupon;
 import domain.Offer;
 import domain.Store;
@@ -69,4 +69,5 @@ public class Facade implements IFacade {
     public List<Coupon> getUserCoupons(String userId){
         return couponRepository.GetUserCoupons(userId);
     }
+
 }

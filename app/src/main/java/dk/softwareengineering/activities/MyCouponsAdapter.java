@@ -1,4 +1,4 @@
-package dk.softwareengineering.shoppingoffer;
+package dk.softwareengineering.activities;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -12,7 +12,6 @@ import android.widget.TextView;
 import businessLayer.IFacade;
 import domain.Coupon;
 import domain.Offer;
-import domain.Store;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;

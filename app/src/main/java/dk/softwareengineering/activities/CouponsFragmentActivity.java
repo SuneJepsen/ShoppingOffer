@@ -1,4 +1,4 @@
-package dk.softwareengineering.shoppingoffer;
+package dk.softwareengineering.activities;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -10,20 +10,14 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import java.util.ArrayList;
-import java.util.List;
 
-import Repository.ISessionRepository;
-import Repository.SharedPreferenceRepository;
-import businessLayer.Facade;
 import businessLayer.IFacade;
 import domain.Coupon;
 import domain.Offer;
-import domain.Store;
 
 
 @SuppressLint("ValidFragment")
@@ -70,9 +64,9 @@ public class CouponsFragmentActivity extends Fragment implements  MyCouponsAdapt
 
     @Override
     public void onItemClick(View view, int position) {
-        Intent intent = new Intent(getContext(), DetailedOfferActivity.class);
+        Intent intent = new Intent(getContext(), DetailedCouponActivity.class);
         Coupon coupon = adapter.getItem(position);
-        intent.putExtra("offerId", coupon.getOffer().getId());
+        intent.putExtra("couponId", coupon.getId());
         startActivity(intent);
     }
 }
