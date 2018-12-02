@@ -57,7 +57,7 @@ public class FakeOfferRepository implements IOfferRepository {
         ArrayList<Offer>storeOfferToReturn = new ArrayList<Offer>();
         for (Offer offer: this.offers)
         {
-            if (storeId== offer.getStore().getId())
+            if (storeId== offer.getStoreId())
             {
                 storeOfferToReturn.add(offer);
             }

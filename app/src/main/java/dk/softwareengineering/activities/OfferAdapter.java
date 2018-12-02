@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 import domain.Offer;
@@ -24,9 +25,9 @@ public class OfferAdapter extends RecyclerView.Adapter<OfferAdapter.ViewHolder> 
     private Context context;
 
     // data is passed into the constructor
-    public OfferAdapter(Context context, List<Offer> mOffers) {
+    public OfferAdapter(Context context) {
         this.mInflater = LayoutInflater.from(context);
-        this.mOffers = mOffers;
+        this.mOffers = new ArrayList<>();
         this.context = context;
     }
 
@@ -98,5 +99,13 @@ public class OfferAdapter extends RecyclerView.Adapter<OfferAdapter.ViewHolder> 
     // parent activity will implement this method to respond to click events
     public interface ItemClickListener {
         void onItemClick(View view, int position);
+    }
+
+    public void addOffers(List<Offer> offers) {
+        mOffers.addAll(offers);
+    }
+
+    public void removeOffers(List<Offer> offers) {
+        mOffers.removeAll(offers);
     }
 }

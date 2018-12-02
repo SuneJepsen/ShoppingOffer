@@ -89,6 +89,7 @@ public class GoogleGeofence implements IGeofence, ResultCallback<Status> {
     }
 
     public void deleteGeofence(PendingIntent intent) {
+        Log.i(TAG, "delete geofence");
         LocationServices.GeofencingApi.removeGeofences(
                 googleApiClient,
                 intent
@@ -107,13 +108,7 @@ public class GoogleGeofence implements IGeofence, ResultCallback<Status> {
 
     @Override
     public void onResult(@NonNull Status status) {
-        Log.i(TAG, "onResult " + status.getStatusCode());
+        Log.i(TAG, "onResult " + status.getStatusCode() + " " + status.getStatusMessage());
     }
-
-
-    /*@Override
-    public IGeofenceEvent getGeofenceEvent(Intent intent) {
-        return new GoogleGeofenceEvent(intent);
-    }*/
 
 }
