@@ -1,4 +1,4 @@
-package dk.softwareengineering.shoppingoffer;
+package dk.softwareengineering.activities;
 
 import android.content.Context;
 import android.content.Intent;
@@ -16,12 +16,12 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import Repository.ISessionRepository;
-import Repository.SharedPreferenceRepository;
 import businessLayer.Facade;
 import businessLayer.IFacade;
 import domain.Coupon;
 import domain.Offer;
+import session.ISessionRepository;
+import session.SharedPreferenceRepository;
 
 /**
  * @TODO comment code
@@ -38,7 +38,6 @@ public class DetailedCouponActivity extends AppCompatActivity implements BottomN
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
 
         contextOfApplication = getApplicationContext();
         ISessionRepository session = new SharedPreferenceRepository(contextOfApplication);

@@ -1,17 +1,12 @@
-package Repository;
+package repository;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-
-import com.google.gson.Gson;
-
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
+
 import domain.Offer;
-import domain.Store;
 import domain.User;
+import factory.IStoreFactory;
+import factory.IUserFactory;
+import session.ISessionRepository;
 
 /**
  * Created by Sune Jepsen on 27-10-2018.

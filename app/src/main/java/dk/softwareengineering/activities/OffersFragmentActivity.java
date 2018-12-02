@@ -1,10 +1,9 @@
-package dk.softwareengineering.shoppingoffer;
+package dk.softwareengineering.activities;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,7 +13,6 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
-import businessLayer.Facade;
 import businessLayer.IFacade;
 import domain.Offer;
 
