@@ -1,7 +1,8 @@
-package Repository;
+package repository;
 
 import java.util.ArrayList;
 import domain.Store;
+import factory.IStoreFactory;
 
 /**
  * Created by Sune Jepsen on 29-10-2018.

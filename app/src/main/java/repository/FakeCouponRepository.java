@@ -1,7 +1,8 @@
-package Repository;
+package repository;
 
 import java.util.List;
 import domain.Coupon;
+import session.ISessionRepository;
 
 
 public class FakeCouponRepository implements  ICouponRepository{

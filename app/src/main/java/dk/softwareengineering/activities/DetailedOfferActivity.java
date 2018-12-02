@@ -1,4 +1,4 @@
-package dk.softwareengineering.shoppingoffer;
+package dk.softwareengineering.activities;
 
 import android.content.Context;
 import android.content.Intent;
@@ -14,8 +14,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import Repository.ISessionRepository;
-import Repository.SharedPreferenceRepository;
+import session.ISessionRepository;
+import session.SharedPreferenceRepository;
 import businessLayer.Facade;
 import businessLayer.IFacade;
 import domain.Offer;
