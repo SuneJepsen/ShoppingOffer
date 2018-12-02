@@ -58,7 +58,7 @@ public class HomeScreenActivity extends AppCompatActivity implements OnMapReadyC
         GoogleApiClient.OnConnectionFailedListener, LocationListener, BottomNavigationView.OnNavigationItemSelectedListener {
     public static final String ACTION = "GeofenceIntentService";
     private static final String TAG = "GoogleMaps";
-    private static final int UPDATE_INTERVAL = 1000, FASTEST_INTERVAL = 1000, RADIUS = 20 ;
+    private static final int UPDATE_INTERVAL = 1000, FASTEST_INTERVAL = 1000, RADIUS = 1000 ;
     private GoogleMap mMap;
     private GoogleApiClient googleApiClient;
     private LocationRequest locationRequest;
@@ -145,15 +145,15 @@ public class HomeScreenActivity extends AppCompatActivity implements OnMapReadyC
                     if (transition == Geofence.GEOFENCE_TRANSITION_ENTER || transition == Geofence.GEOFENCE_TRANSITION_DWELL) {
                         LatLng store_position = new LatLng(s.getLocation().latitude, s.getLocation().longitude);
                         storeMarkers.put(storeId, mMap.addMarker(new MarkerOptions().position(store_position).title(s.getName())));
-                        CircleOptions circleOptions = new CircleOptions().center(store_position).radius(20).fillColor(shadeColor).strokeColor(strokeColor).strokeWidth(2);
+                        CircleOptions circleOptions = new CircleOptions().center(store_position).radius(100).fillColor(shadeColor).strokeColor(strokeColor).strokeWidth(2);
                         storeCircles.put(storeId, mMap.addCircle(circleOptions));
-                        //offersFragmentActivity.addOffers(storeId);
+                        offersFragmentActivity.addOffers(storeId);
                     } else if (transition == Geofence.GEOFENCE_TRANSITION_EXIT) {
                         storeMarkers.get(storeId).remove();
                         storeMarkers.remove(storeId);
                         storeCircles.get(storeId).remove();
                         storeCircles.remove(storeId);
-                        //offersFragmentActivity.removeOffers(storeId);
+                        offersFragmentActivity.removeOffers(storeId);
                     }
                     break;
                 }
@@ -261,7 +261,8 @@ public class HomeScreenActivity extends AppCompatActivity implements OnMapReadyC
     @Override
     public void onConnected(@Nullable Bundle bundle) {
         Log.i(TAG, "conntected");
-        googleGeofence = new GoogleGeofence(this, googleApiClient, RADIUS, 5);
+        googleGeofence = new GoogleGeofence(this, googleApiClient, RADIUS
+                , 5);
         getLocationPermission();
 
     }

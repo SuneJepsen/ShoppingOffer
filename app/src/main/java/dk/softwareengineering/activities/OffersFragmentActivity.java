@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +23,7 @@ import domain.Offer;
  */
 @SuppressLint("ValidFragment")
 public class OffersFragmentActivity extends Fragment implements OfferAdapter.ItemClickListener {
-
+    private final String TAG = "GoogleFragment";
     private View rootView;
     private OfferAdapter adapter;
     private final IFacade facade;
@@ -64,12 +65,16 @@ public class OffersFragmentActivity extends Fragment implements OfferAdapter.Ite
     public void addOffers(int storeId) {
         // Data to populate the RecyclerView with
         List<Offer> offers = facade.getStoreOffers(storeId);
+        Log.i(TAG, "add " + offers.size() + " offers for store " + storeId);
         adapter.addOffers(offers);
+        adapter.notifyDataSetChanged();
     }
 
     public void removeOffers(int storeId) {
         List<Offer> offers = facade.getStoreOffers(storeId);
+        Log.i(TAG, "remove " + offers.size() + " offers for store " + storeId);
         adapter.removeOffers(offers);
+        adapter.notifyDataSetChanged();
     }
 
 }
