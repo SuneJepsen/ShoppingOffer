@@ -69,4 +69,5 @@ public class Facade implements IFacade {
     public List<Coupon> getUserCoupons(String userId){
         return couponRepository.GetUserCoupons(userId);
     }
+
 }

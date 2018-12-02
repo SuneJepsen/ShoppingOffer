@@ -14,7 +14,6 @@ public class FakeCouponRepository implements  ICouponRepository{
         this.prefRepo = prefRepo;
     }
 
-
     @Override
     public List<Coupon> GetUserCoupons(String userId) {
         return prefRepo.GetUserCoupons(userId);

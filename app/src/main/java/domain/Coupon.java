@@ -22,4 +22,6 @@ public class Coupon {
     public int getId() {
         return Id;
     }
+
+    public Date getCreatedDat() { return CreatedDate; }
 }
