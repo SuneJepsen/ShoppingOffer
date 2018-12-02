@@ -29,6 +29,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.Circle;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
@@ -145,7 +146,7 @@ public class HomeScreenActivity extends AppCompatActivity implements OnMapReadyC
                     if (transition == Geofence.GEOFENCE_TRANSITION_ENTER || transition == Geofence.GEOFENCE_TRANSITION_DWELL) {
                         LatLng store_position = new LatLng(s.getLocation().latitude, s.getLocation().longitude);
                         storeMarkers.put(storeId, mMap.addMarker(new MarkerOptions().position(store_position).title(s.getName())));
-                        CircleOptions circleOptions = new CircleOptions().center(store_position).radius(100).fillColor(shadeColor).strokeColor(strokeColor).strokeWidth(2);
+                        CircleOptions circleOptions = new CircleOptions().center(store_position).radius(50).fillColor(shadeColor).strokeColor(strokeColor).strokeWidth(2);
                         storeCircles.put(storeId, mMap.addCircle(circleOptions));
                         offersFragmentActivity.addOffers(storeId);
                     } else if (transition == Geofence.GEOFENCE_TRANSITION_EXIT) {
@@ -201,7 +202,8 @@ public class HomeScreenActivity extends AppCompatActivity implements OnMapReadyC
             if (location != null) {
                 Log.i("GoogleMaps", "Initial location " + location.getLatitude() + ", " + location.getLongitude());
                 LatLng current_position = new LatLng(location.getLatitude(), location.getLongitude());
-                marker = mMap.addMarker(new MarkerOptions().position(current_position).title("Current Position"));
+                marker = mMap.addMarker(new MarkerOptions().position(current_position).title("Current Position")
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.bluedot_smaller)));
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(current_position));
             }
 
@@ -283,7 +285,8 @@ public class HomeScreenActivity extends AppCompatActivity implements OnMapReadyC
         if (marker != null) {
             marker.remove();
         }
-        marker = mMap.addMarker(new MarkerOptions().position(current_position).title("Current Position"));
+        marker = mMap.addMarker(new MarkerOptions().position(current_position).title("Current Position")
+            .icon(BitmapDescriptorFactory.fromResource(R.drawable.bluedot_smaller)));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(current_position));
         Log.i("GoogleMaps", "current location changed: " + location.getLatitude() + ", " + location.getLongitude());
     }
