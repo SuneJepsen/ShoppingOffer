@@ -1,4 +1,4 @@
-package Repository;
+package factory;
 
 import java.util.ArrayList;
 import domain.User;

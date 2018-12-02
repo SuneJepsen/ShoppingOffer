@@ -1,4 +1,4 @@
-package dk.softwareengineering.shoppingoffer;
+package dk.softwareengineering.activities;
 
 import org.junit.Test;
 

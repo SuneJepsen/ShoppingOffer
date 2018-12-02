@@ -1,4 +1,4 @@
-package dk.softwareengineering.shoppingoffer;
+package dk.softwareengineering.activities;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -47,8 +47,8 @@ import domain.Store;
 import geofence.GoogleGeofence;
 import geofence.IGeofence;
 
-import Repository.ISessionRepository;
-import Repository.SharedPreferenceRepository;
+import session.ISessionRepository;
+import session.SharedPreferenceRepository;
 
 
 /**
