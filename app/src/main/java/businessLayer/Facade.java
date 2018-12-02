@@ -2,12 +2,12 @@ package businessLayer;
 import java.util.ArrayList;
 import java.util.List;
 
-import repository.FakeCouponRepository;
-import repository.FakeOfferRepository;
+import Repository.FakeCouponRepository;
+import Repository.FakeOfferRepository;
 import factory.FakeStoreFactory;
-import repository.FakeStoreRepository;
+import Repository.FakeStoreRepository;
 import factory.FakeUserFactory;
-import repository.IOfferRepository;
+import Repository.IOfferRepository;
 import session.ISessionRepository;
 import factory.IStoreFactory;
 import factory.IUserFactory;

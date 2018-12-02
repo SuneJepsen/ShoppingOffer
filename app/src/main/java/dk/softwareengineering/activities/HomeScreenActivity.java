@@ -58,7 +58,7 @@ public class HomeScreenActivity extends AppCompatActivity implements OnMapReadyC
         GoogleApiClient.OnConnectionFailedListener, LocationListener, BottomNavigationView.OnNavigationItemSelectedListener {
     public static final String ACTION = "GeofenceIntentService";
     private static final String TAG = "GoogleMaps";
-    private static final int UPDATE_INTERVAL = 1000, FASTEST_INTERVAL = 1000, RADIUS = 100 ;
+    private static final int UPDATE_INTERVAL = 1000, FASTEST_INTERVAL = 1000, RADIUS = 20 ;
     private GoogleMap mMap;
     private GoogleApiClient googleApiClient;
     private LocationRequest locationRequest;
