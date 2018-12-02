@@ -94,7 +94,7 @@ public class DetailedOfferActivity extends AppCompatActivity implements BottomNa
             txt_offerTitle.setText(offer.getTitle());
             txt_store.setText(facade.getStoreById(offer.getStoreId()).getName());
             txt_stock.setText(Integer.toString(offer.getAmountCounter()));
-            txt_offerPrice.setText(Double.toString(offer.getPrice()));
+            txt_offerPrice.setText(Double.toString(offer.getPrice()) + " kr");
             //txt_description.setText();
             txt_deadline.setText(new SimpleDateFormat("hh:mm").format(offer.getTimeCounter()));
         }

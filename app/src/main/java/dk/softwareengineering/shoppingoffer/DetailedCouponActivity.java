@@ -77,7 +77,7 @@ public class DetailedCouponActivity extends AppCompatActivity implements BottomN
                     img_couponImage.setImageResource(imageResource);
                     txt_couponTitle.setText(c.getOffer().getTitle());
                     txt_store.setText(facade.getStoreById(c.getOffer().getStoreId()).getName());
-                    txt_price.setText(Double.toString(c.getOffer().getPrice()));
+                    txt_price.setText(Double.toString(c.getOffer().getPrice()) + " kr");
                     //txt_description.setText();
                     //txt_countDown = new TimerCount
                 }
