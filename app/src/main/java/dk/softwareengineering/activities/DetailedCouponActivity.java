@@ -2,24 +2,22 @@ package dk.softwareengineering.activities;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
+import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.Date;
 import java.util.List;
 
 import businessLayer.Facade;
 import businessLayer.IFacade;
 import domain.Coupon;
-import domain.Offer;
 import session.ISessionRepository;
 import session.SharedPreferenceRepository;
 
@@ -31,6 +29,12 @@ public class DetailedCouponActivity extends AppCompatActivity implements BottomN
     private IFacade facade;
     private int couponId;
     public static Context contextOfApplication;
+
+    //Timer
+    private CountDownTimer countDownTimer;
+    private long timeLeftInMilliseconds;
+    private final long RESERVATION_TIME = 600000; // = 10 min
+    private Button txt_countDown;
 
     public DetailedCouponActivity() {
 
@@ -62,7 +66,7 @@ public class DetailedCouponActivity extends AppCompatActivity implements BottomN
         TextView txt_store = (TextView) findViewById(R.id.txt_couponstore);
         TextView txt_price = (TextView) findViewById(R.id.txt_couponPrice);
         TextView txt_description = (TextView) findViewById(R.id.txt_couponDescription);
-        Button txt_countDown = (Button) findViewById(R.id.countDown);
+        txt_countDown = (Button) findViewById(R.id.countDown);
 
         Intent intent = getIntent();
         savedInstanceState = intent.getExtras();
@@ -78,11 +82,47 @@ public class DetailedCouponActivity extends AppCompatActivity implements BottomN
                     txt_store.setText(facade.getStoreById(c.getOffer().getStoreId()).getName());
                     txt_price.setText(Double.toString(c.getOffer().getPrice()) + " kr");
                     //txt_description.setText();
-                    //txt_countDown = new TimerCount
+                    startTimer(c.getCreatedDat());
+
                 }
             }
         }
 
+
+    }
+
+    //A countdown timer is created every time a coupon is shown
+    //with the remaining time untill deadline (10 minutes after created)
+    public void startTimer(final Date createdDate){
+        long duration = createdDate.getTime() + RESERVATION_TIME - new Date().getTime();
+
+        countDownTimer = new CountDownTimer(duration, 1000) {
+            @Override
+            public void onTick(long l) {
+                timeLeftInMilliseconds = l;
+                updateTimer();
+            }
+
+            @Override
+            public void onFinish() {
+
+            }
+        } .start();
+    }
+
+    //Formating of remaining time
+    public void updateTimer() {
+        // Casting minutes and seconds to int
+        int minutes = (int) timeLeftInMilliseconds / 60000;
+        int seconds = (int) timeLeftInMilliseconds % 60000/1000;
+        String timeLeftText;
+
+        timeLeftText = ""  + minutes;
+        timeLeftText += ":";
+        if(seconds < 10) timeLeftText += "0"; // if seconds are below 10 then we want the digit to still be 2 digits with 0 in front of 1 to 9
+        timeLeftText += seconds;
+
+        txt_countDown.setText(timeLeftText);
     }
 
 

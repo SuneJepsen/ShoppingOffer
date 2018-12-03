@@ -1,5 +1,6 @@
 package businessLayer;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import repository.FakeCouponRepository;
@@ -24,6 +25,7 @@ public class Facade implements IFacade {
     private final FakeStoreRepository storeRepository;
     private final ISessionRepository prefRepo;
     private final FakeCouponRepository couponRepository;
+    private final long RESERVATION_TIME = 600000; // 10 min
 
     public Facade(ISessionRepository prefRepo){
         this.prefRepo = prefRepo;
@@ -67,7 +69,17 @@ public class Facade implements IFacade {
 
     @Override
     public List<Coupon> getUserCoupons(String userId){
-        return couponRepository.GetUserCoupons(userId);
-    }
 
+        List<Coupon> coupons = couponRepository.GetUserCoupons(userId);
+
+        //Remove expired coupons
+        for(int i = coupons.size()-1; i >= 0; i--) {
+            long expirationDate = coupons.get(i).getCreatedDat().getTime() + RESERVATION_TIME;
+
+            if(new Date().getTime() > expirationDate){
+                coupons.remove(i);
+            }
+        }
+        return coupons;
+    }
 }
