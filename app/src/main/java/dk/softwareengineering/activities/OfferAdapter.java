@@ -12,6 +12,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import businessLayer.IFacade;
 import domain.Offer;
 
 /**
@@ -23,12 +24,15 @@ public class OfferAdapter extends RecyclerView.Adapter<OfferAdapter.ViewHolder> 
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
     private Context context;
+    private IFacade facade;
 
     // data is passed into the constructor
-    public OfferAdapter(Context context) {
+    public OfferAdapter(Context context, IFacade facade) {
         this.mInflater = LayoutInflater.from(context);
         this.mOffers = new ArrayList<>();
         this.context = context;
+        this.facade = facade;
+
     }
 
     // inflates the row layout from xml when needed
@@ -44,8 +48,8 @@ public class OfferAdapter extends RecyclerView.Adapter<OfferAdapter.ViewHolder> 
         Offer offer = mOffers.get(position);
 
         int imageResource = context.getResources().getIdentifier("@drawable/"+offer.getImagePath(), null, context.getPackageName());
-        String mOfferTitle = "N/A";
-        String mOfferDescription = offer.getTitle();
+        String mOfferTitle = offer.getTitle();
+        String mOfferStore = facade.getStoreById(offer.getStoreId()).getName();
         double mOfferDiscount = offer.getDiscount();
         double mOfferPrice = offer.getPrice();
 
@@ -53,7 +57,7 @@ public class OfferAdapter extends RecyclerView.Adapter<OfferAdapter.ViewHolder> 
         holder.txt_offerTitle.setText(mOfferTitle);
         holder.txt_offerDiscount.setText("-"+ Double.toString(mOfferDiscount) + "%");
         holder.txt_offerPrice.setText(new DecimalFormat("#.0#").format(mOfferPrice));
-        holder.txt_offerDescription.setText(mOfferDescription);
+        holder.txt_offer_Store.setText(mOfferStore);
     }
 
     // total number of rows
@@ -66,14 +70,14 @@ public class OfferAdapter extends RecyclerView.Adapter<OfferAdapter.ViewHolder> 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         ImageView img_offerImage;
-        TextView txt_offerTitle, txt_offerDescription, txt_offerPrice, txt_offerDiscount;
+        TextView txt_offerTitle, txt_offer_Store, txt_offerPrice, txt_offerDiscount;
 
 
         public ViewHolder(View itemView) {
             super(itemView);
             img_offerImage = itemView.findViewById(R.id.img_offer);
             txt_offerTitle = itemView.findViewById(R.id.txt_offerTitle);
-            txt_offerDescription = itemView.findViewById(R.id.txt_offerDescription);
+            txt_offer_Store = itemView.findViewById(R.id.txt_offer_Store);
             txt_offerPrice = itemView.findViewById(R.id.txt_offerPrice);
             txt_offerDiscount = itemView.findViewById(R.id.txt_offerDiscount);
             itemView.setOnClickListener(this);
