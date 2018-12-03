@@ -77,7 +77,7 @@ public class OfferAdapter extends RecyclerView.Adapter<OfferAdapter.ViewHolder> 
             super(itemView);
             img_offerImage = itemView.findViewById(R.id.img_offer);
             txt_offerTitle = itemView.findViewById(R.id.txt_offerTitle);
-            txt_offer_Store = itemView.findViewById(R.id.txt_offer_Store);
+            txt_offer_Store = itemView.findViewById(R.id.txt_offerStore);
             txt_offerPrice = itemView.findViewById(R.id.txt_offerPrice);
             txt_offerDiscount = itemView.findViewById(R.id.txt_offerDiscount);
             itemView.setOnClickListener(this);

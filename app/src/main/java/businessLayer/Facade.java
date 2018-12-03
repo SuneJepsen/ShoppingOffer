@@ -55,9 +55,8 @@ public class Facade implements IFacade {
     }
 
     @Override
-    public Store getStoreById(int storeId) {
-        ArrayList<Integer> storeIds = new ArrayList<Integer>();
-        storeIds.add(storeId);
+    public Store getStoreById(final int storeId) {
+        ArrayList<Integer> storeIds = new ArrayList<Integer>(){{add(storeId);}};
         ArrayList<Store> stores = this.storeRepository.getStoresByIds(storeIds);
         return stores.size() > 0 ? stores.get(0) : null ;
     }

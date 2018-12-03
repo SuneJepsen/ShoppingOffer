@@ -1,6 +1,7 @@
 package repository;
 
 import java.util.ArrayList;
+
 import domain.Store;
 import factory.IStoreFactory;
 
@@ -16,6 +17,15 @@ public class FakeStoreRepository implements IStoreRepository {
 
     @Override
     public ArrayList<Store> getStoresByIds(ArrayList<Integer> storeIds) {
-        return this.stores;
+        ArrayList<Store> storeList = new ArrayList<Store>();
+        for (int id : storeIds) {
+            for (Store store : stores) {
+                if (id == store.getId()) {
+                    storeList.add(store);
+                    break;
+                }
+            }
+        }
+        return storeList;
     }
 }
