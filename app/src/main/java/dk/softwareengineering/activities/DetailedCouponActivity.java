@@ -58,7 +58,7 @@ public class DetailedCouponActivity extends AppCompatActivity implements BottomN
 
         if (savedInstanceState != null){
             int couponId = (Integer) savedInstanceState.getInt("couponId");
-            List<Coupon> coupons = facade.getUserCoupons("sune@student.sdu.dk");
+            List<Coupon> coupons = facade.getCustomerCoupons("sune@student.sdu.dk");
             for (Coupon c : coupons) {
                 if (c.getId() == couponId) {
                     int imageResource = getResources().getIdentifier("@drawable/"+c.getOffer().getImagePath(), null, this.getPackageName());

@@ -45,7 +45,7 @@ public class SharedPreferenceRepository implements ISessionRepository {
         return coupons;
     }
 
-    public void SaveOfferToUser(String userId, Offer offer){
+    public void saveOfferToCustomer(String userId, Offer offer){
 
         List<Coupon> coupons = GetUserCouponsInPref(userId);
 
@@ -63,7 +63,7 @@ public class SharedPreferenceRepository implements ISessionRepository {
         editor.commit();
 
 
-        Log.i("saveOfferToUser, userId: ", userId);
+        Log.i("saveOfferToCustomer, userId: ", userId);
 
     }
 
@@ -74,7 +74,7 @@ public class SharedPreferenceRepository implements ISessionRepository {
             return new ArrayList<Coupon>();
         }
 
-        Log.i("getUserCoupons, userId: ", userId);
+        Log.i("getCustomerCoupons, userId: ", userId);
 
         return coupons;
     }

@@ -12,5 +12,5 @@ public interface IOfferRepository {
     Offer getOfferById(int id);
     ArrayList<Offer> getOfferByIds(ArrayList<Integer>offerIds);
     ArrayList<Offer> getStoreOffers(Integer storeId);
-    void SaveOfferToUser(String userId, int offerId);
+    void saveOfferToCustomer(String userId, int offerId);
 }

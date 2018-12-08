@@ -34,7 +34,7 @@ public class MyCouponsAdapter extends RecyclerView.Adapter<MyCouponsAdapter.View
         this.mInflater = LayoutInflater.from(context);
         this.facade = facade;
         this.context = context;
-        this.coupons = facade.getUserCoupons("sune@student.sdu.dk");
+        this.coupons = facade.getCustomerCoupons("sune@student.sdu.dk");
     }
 
     @Override

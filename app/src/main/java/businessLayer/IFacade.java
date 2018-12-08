@@ -46,19 +46,19 @@ public interface IFacade {
     /**
      * Saves offer that users have reserved. Binds the offer to the user.
      *
-     * @param userId ID of the user to attach the offer to.
+     * @param customerId ID of the user to attach the offer to.
      * @param offerId The offer to be attached, using the offer ID.
      */
-    void saveOfferToUser(String userId, int offerId);
+    void saveOfferToCustomer(String customerId, int offerId);
 
     /**
      * Get all coupons associated with a user.
      *
-     * @param userId The ID of the user to use when getting coupons.
+     * @param customerId The ID of the user to use when getting coupons.
      *
      * @return Returns the coupons associated with a user.
      */
-    List<Coupon> getUserCoupons(String userId);
+    List<Coupon> getCustomerCoupons(String customerId);
 
     /**
      * Get individual stores using the store ID.

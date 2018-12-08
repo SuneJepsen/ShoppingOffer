@@ -6,6 +6,6 @@ import domain.Coupon;
 import domain.Offer;
 
 public interface ISessionRepository {
-    void SaveOfferToUser(String userId, Offer offer);
+    void saveOfferToCustomer(String userId, Offer offer);
     List<Coupon> GetUserCoupons(String userId);
 }

@@ -7,11 +7,11 @@ import repository.FakeCouponRepository;
 import repository.FakeOfferRepository;
 import factory.FakeStoreFactory;
 import repository.FakeStoreRepository;
-import factory.FakeUserFactory;
+import factory.FakeCustomerFactory;
 import repository.IOfferRepository;
 import session.ISessionRepository;
 import factory.IStoreFactory;
-import factory.IUserFactory;
+import factory.ICustomerFactory;
 import domain.Coupon;
 import domain.Offer;
 import domain.Store;
@@ -29,9 +29,9 @@ public class Facade implements IFacade {
     public Facade(ISessionRepository prefRepo){
         this.prefRepo = prefRepo;
         IStoreFactory storefactory = new FakeStoreFactory();
-        IUserFactory  userFactory = new FakeUserFactory();
+        ICustomerFactory customerFactory = new FakeCustomerFactory();
         this.couponRepository = new FakeCouponRepository(prefRepo);
-        this.offerRepository = new FakeOfferRepository(storefactory,userFactory,prefRepo);
+        this.offerRepository = new FakeOfferRepository(storefactory,customerFactory,prefRepo);
         this.storeRepository = new FakeStoreRepository(storefactory);
     }
     @Override
@@ -61,14 +61,14 @@ public class Facade implements IFacade {
     }
 
     @Override
-    public void saveOfferToUser(String userId, int offerId){
-        offerRepository.SaveOfferToUser(userId,offerId);
+    public void saveOfferToCustomer(String customerId, int offerId){
+        offerRepository.saveOfferToCustomer(customerId,offerId);
     }
 
     @Override
-    public List<Coupon> getUserCoupons(String userId){
+    public List<Coupon> getCustomerCoupons(String customerId){
 
-        List<Coupon> coupons = couponRepository.GetUserCoupons(userId);
+        List<Coupon> coupons = couponRepository.GetUserCoupons(customerId);
 
         //Remove expired coupons
         for(int i = coupons.size()-1; i >= 0; i--) {

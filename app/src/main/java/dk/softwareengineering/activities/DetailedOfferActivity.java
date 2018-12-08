@@ -55,7 +55,7 @@ public class DetailedOfferActivity extends AppCompatActivity implements BottomNa
         btn_reserve.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            facade.saveOfferToUser("sune@student.sdu.dk",offerId);
+            facade.saveOfferToCustomer("sune@student.sdu.dk",offerId);
             Intent intent = new Intent(DetailedOfferActivity.this, MyCouponsActivity.class);
 
             startActivity(intent);

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import domain.Offer;
 import domain.Customer;
 import factory.IStoreFactory;
-import factory.IUserFactory;
+import factory.ICustomerFactory;
 import session.ISessionRepository;
 
 /**
@@ -17,9 +17,9 @@ public class FakeOfferRepository implements IOfferRepository {
     private final ISessionRepository prefRepo;
     private ArrayList<Offer> offers;
 
-    public FakeOfferRepository(IStoreFactory storeFactory, IUserFactory userFactory, ISessionRepository prefRepo) {
+    public FakeOfferRepository(IStoreFactory storeFactory, ICustomerFactory customerFactory, ISessionRepository prefRepo) {
         this.offers = storeFactory.getOffers();
-        this.customers = userFactory.getCustomers();
+        this.customers = customerFactory.getCustomers();
         this.prefRepo = prefRepo;
     }
 
@@ -68,9 +68,9 @@ public class FakeOfferRepository implements IOfferRepository {
             return storeOfferToReturn;
     }
 
-    public void SaveOfferToUser(String userId, int offerId){
+    public void saveOfferToCustomer(String customerId, int offerId){
         Offer offer = getOfferById(offerId);
-        prefRepo.SaveOfferToUser(userId,offer);
+        prefRepo.saveOfferToCustomer(customerId,offer);
     }
 
 

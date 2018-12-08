@@ -9,9 +9,8 @@ import domain.Offer;
 import domain.Store;
 
 /**
- * Created by Sune Jepsen on 29-10-2018.
+ * Used for creating fake offers and stores. This will be replaced by an actual data storage solution.
  */
-
 public class FakeStoreFactory implements IStoreFactory {
     private final ArrayList<Store> stores;
 
