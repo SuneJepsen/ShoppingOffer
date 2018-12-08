@@ -3,101 +3,100 @@ package domain;
 import java.util.Date;
 
 /**
- * Created by Sune Jepsen on 19-10-2018.
+ * POJO of an Offer. Contains information such as ID, created date and so on.
  */
-
 public class Offer {
-    private final int StoreId;
-    private int Id;
-    private String Title;
-    private double Discount;
-    private double Latitude;
-    private double Longitude;
-    private double Price;
-    private String ImagePath;
-    private Date TimeCounter=null;
-    private Integer AmountCounter=null;
-    private Date CreatedDate;
-    private Store Store;
+    private final int storeId;
+    private int id;
+    private String title;
+    private double discount;
+    private double latitude;
+    private double longitude;
+    private double price;
+    private String imagePath;
+    private Date timeCounter;
+    private Integer amountCounter;
+    private Date createdDate;
+    private Store store;
 
     public Offer(int id, String title, double discount, double latitude, double longitude, double price, String imagePath, Date timeCounter, Integer amountCounter, Date createdDate, int storeId) {
-        Id = id;
-        Title = title;
-        Discount = discount;
-        Latitude = latitude;
-        Longitude = longitude;
-        Price = price;
-        ImagePath = imagePath;
-        TimeCounter = timeCounter;
-        AmountCounter = amountCounter;
-        CreatedDate = createdDate;
-        StoreId = storeId;
+        this.id = id;
+        this.title = title;
+        this.discount = discount;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.price = price;
+        this.imagePath = imagePath;
+        this.timeCounter = timeCounter;
+        this.amountCounter = amountCounter;
+        this.createdDate = createdDate;
+        this.storeId = storeId;
     }
     public int getId() {
-        return Id;
+        return id;
     }
     public void setId(int id) {
-        Id = id;
+        this.id = id;
     }
     public String getTitle() {
-        return Title;
+        return title;
     }
     public void setTitle(String title) {
-        Title = title;
+        this.title = title;
     }
     public double getDiscount() {
-        return Discount;
+        return discount;
     }
     public void setDiscount(double discount) {
-        Discount = discount;
+        this.discount = discount;
     }
     public double getLatitude() {
-        return Latitude;
+        return latitude;
     }
     public void setLatitude(double latitude) {
-        Latitude = latitude;
+        this.latitude = latitude;
     }
     public double getLongitude() {
-        return Longitude;
+        return longitude;
     }
     public void setLongitude(double longitude) {
-        Longitude = longitude;
+        this.longitude = longitude;
     }
     public double getPrice() {
-        return Price;
+        return price;
     }
     public void setPrice(double price) {
-        Price = price;
+        this.price = price;
     }
     public String getImagePath() {
-        return ImagePath;
+        return imagePath;
     }
     public void setImagePath(String imagePath) {
-        ImagePath = imagePath;
+        this.imagePath = imagePath;
     }
     public Date getTimeCounter() {
-        return TimeCounter;
+        return timeCounter;
     }
     public void setTimeCounter(Date timeCounter) {
-        TimeCounter = timeCounter;
+        this.timeCounter = timeCounter;
     }
     public Integer getAmountCounter() {
-        return AmountCounter;
+        return amountCounter;
     }
     public void setAmountCounter(Integer amountCounter) {
-        AmountCounter = amountCounter;
+        this.amountCounter = amountCounter;
     }
     public Date getCreatedDate() {
-        return CreatedDate;
+        return createdDate;
     }
     public void setCreatedDate(Date createdDate) {
-        CreatedDate = createdDate;
+        this.createdDate = createdDate;
     }
     public domain.Store getStore() {
-        return Store;
+        return store;
     }
     public void setStore(domain.Store store) {
-        Store = store;
+        this.store = store;
     }
-    public int getStoreId() { return StoreId; }
+    public int getStoreId() { return storeId; }
 }

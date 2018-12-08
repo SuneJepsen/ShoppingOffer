@@ -2,8 +2,8 @@ package factory;
 
 import java.util.ArrayList;
 
-import domain.User;
+import domain.Customer;
 
 public interface IUserFactory {
-    ArrayList<User> getUsers();
+    ArrayList<Customer> getCustomers();
 }

@@ -1,21 +1,21 @@
 package factory;
 
 import java.util.ArrayList;
-import domain.User;
+import domain.Customer;
 
 public class FakeUserFactory implements  IUserFactory {
-    private final ArrayList<User> Users;
+    private final ArrayList<Customer> customers;
 
     public FakeUserFactory() {
-        this.Users = new ArrayList<User>(){{
-            add(new User("sune@student.sdu.dk"));
-            add(new User("anna@student.sdu.dk"));
-            add(new User("veena@student.sdu.dk"));
-            add(new User("admira@student.sdu.dk"));
+        this.customers = new ArrayList<Customer>(){{
+            add(new Customer("sune@student.sdu.dk"));
+            add(new Customer("anna@student.sdu.dk"));
+            add(new Customer("veena@student.sdu.dk"));
+            add(new Customer("admira@student.sdu.dk"));
        }};
     }
 
-    public ArrayList<User> getUsers() {
-        return Users;
+    public ArrayList<Customer> getCustomers() {
+        return customers;
     }
 }

@@ -3,7 +3,7 @@ package repository;
 import java.util.ArrayList;
 
 import domain.Offer;
-import domain.User;
+import domain.Customer;
 import factory.IStoreFactory;
 import factory.IUserFactory;
 import session.ISessionRepository;
@@ -13,13 +13,13 @@ import session.ISessionRepository;
  */
 
 public class FakeOfferRepository implements IOfferRepository {
-    private final ArrayList<User> users;
+    private final ArrayList<Customer> customers;
     private final ISessionRepository prefRepo;
     private ArrayList<Offer> offers;
 
     public FakeOfferRepository(IStoreFactory storeFactory, IUserFactory userFactory, ISessionRepository prefRepo) {
         this.offers = storeFactory.getOffers();
-        this.users = userFactory.getUsers();
+        this.customers = userFactory.getCustomers();
         this.prefRepo = prefRepo;
     }
 

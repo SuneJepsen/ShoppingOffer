@@ -72,7 +72,7 @@ public class Facade implements IFacade {
 
         //Remove expired coupons
         for(int i = coupons.size()-1; i >= 0; i--) {
-            long expirationDate = coupons.get(i).getCreatedDat().getTime() + RESERVATION_TIME;
+            long expirationDate = coupons.get(i).getCreatedDate().getTime() + RESERVATION_TIME;
 
             if(new Date().getTime() > expirationDate){
                 coupons.remove(i);
