@@ -9,9 +9,8 @@ import factory.ICustomerFactory;
 import session.ISessionRepository;
 
 /**
- * Created by Sune Jepsen on 27-10-2018.
+ * Used for fake offers. Will be replaced with actual data storage system.
  */
-
 public class FakeOfferRepository implements IOfferRepository {
     private final ArrayList<Customer> customers;
     private final ISessionRepository prefRepo;
@@ -32,7 +31,7 @@ public class FakeOfferRepository implements IOfferRepository {
                 return offer;
             }
         }
-        //Fallback
+        //Fallback.
         return this.offers.get(0);
     }
     @Override
@@ -48,7 +47,7 @@ public class FakeOfferRepository implements IOfferRepository {
             }
         }
         if(offerToReturn.size() == 0)
-            return this.offers; //Fallback
+            return this.offers; //Fallback.
         else
             return offerToReturn;
     }
@@ -63,7 +62,7 @@ public class FakeOfferRepository implements IOfferRepository {
             }
         }
         if(storeOfferToReturn.size() == 0)
-            return this.offers; //Fallback
+            return this.offers; //Fallback.
         else
             return storeOfferToReturn;
     }
@@ -72,9 +71,4 @@ public class FakeOfferRepository implements IOfferRepository {
         Offer offer = getOfferById(offerId);
         prefRepo.saveOfferToCustomer(customerId,offer);
     }
-
-
-
-
-
 }

@@ -8,7 +8,10 @@ import android.util.Log;
 import com.google.android.gms.location.Geofence;
 import com.google.android.gms.location.GeofencingEvent;
 
-
+/**
+ * Used for sending out a geofence service that will listen for when a customer walks into/out of
+ * the geofence.
+ */
 public class GeofenceIntentService extends IntentService {
     public static final String ACTION = "GeofenceIntentService";
     private String TAG = "GoogleIntentService";

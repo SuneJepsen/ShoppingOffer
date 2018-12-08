@@ -68,7 +68,7 @@ public class Facade implements IFacade {
     @Override
     public List<Coupon> getCustomerCoupons(String customerId){
 
-        List<Coupon> coupons = couponRepository.GetUserCoupons(customerId);
+        List<Coupon> coupons = couponRepository.getCustomerCoupons(customerId);
 
         //Remove expired coupons
         for(int i = coupons.size()-1; i >= 0; i--) {

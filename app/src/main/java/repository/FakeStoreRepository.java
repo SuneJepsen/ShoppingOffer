@@ -6,9 +6,8 @@ import domain.Store;
 import factory.IStoreFactory;
 
 /**
- * Created by Sune Jepsen on 29-10-2018.
+ * Used for fake stores. Will be replaced by actual data storage system.
  */
-
 public class FakeStoreRepository implements IStoreRepository {
     private ArrayList<Store> stores;
     public FakeStoreRepository(IStoreFactory storeFactory) {
