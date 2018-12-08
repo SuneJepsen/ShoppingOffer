@@ -15,5 +15,4 @@ public interface IGeofence {
 
     void deleteGeofence(PendingIntent intent);
 
-    //IGeofenceEvent getGeofenceEvent(Intent intent);
 }

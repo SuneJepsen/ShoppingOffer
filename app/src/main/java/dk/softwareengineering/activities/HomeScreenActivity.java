@@ -53,20 +53,19 @@ import session.SharedPreferenceRepository;
 
 
 /**
- * @TODO Comment and comment purpose of class
+ * Used for displaying the map and offers from store.
  */
 public class HomeScreenActivity extends AppCompatActivity implements OnMapReadyCallback,GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener, LocationListener, BottomNavigationView.OnNavigationItemSelectedListener {
+
     public static final String ACTION = "GeofenceIntentService";
     private static final String TAG = "GoogleMaps";
     private static final int UPDATE_INTERVAL = 1000, FASTEST_INTERVAL = 1000, RADIUS = 1000 ;
     private GoogleMap mMap;
     private GoogleApiClient googleApiClient;
-    private LocationRequest locationRequest;
     public final static int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
     private SupportMapFragment mapFragment;
     private Marker marker;
-    private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
     private IFacade facade;
     private IGeofence googleGeofence;
@@ -75,28 +74,12 @@ public class HomeScreenActivity extends AppCompatActivity implements OnMapReadyC
     private Map<Integer, Marker> storeMarkers;
     private Map<Integer, Circle> storeCircles;
     private OffersFragmentActivity offersFragmentActivity;
-    private int strokeColor = 0xffff0000;
-    private int shadeColor = 0x44ff0000;
 
     public HomeScreenActivity() {
-
     }
-
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        /*
-        Offer offer = facade.getOfferById(23);
-
-        contextOfApplication = getApplicationContext();
-
-        ISessionRepository session = new SharedPreferenceRepository(contextOfApplication);
-
-        session.saveOfferToUser("sune@student.sdu.dk",offer);
-
-        */
-
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homescreen);
         setTitle(getResources().getString(R.string.title_activity_HomeScreen));
@@ -109,7 +92,7 @@ public class HomeScreenActivity extends AppCompatActivity implements OnMapReadyC
         this.facade = new Facade(session);
         stores = facade.getStores(0,0);
 
-        fragmentManager = getSupportFragmentManager();
+        FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
         setupFragment();
 
@@ -126,14 +109,16 @@ public class HomeScreenActivity extends AppCompatActivity implements OnMapReadyC
 
         LocalBroadcastManager.getInstance(this).registerReceiver(messageReceiver,
                 new IntentFilter(ACTION));
-
     }
 
+    /**
+     * Used for receiving messages from the broadcast created by
+     * {@link geofence.GeofenceIntentService}.
+     */
     private BroadcastReceiver messageReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             Log.d(TAG, "Got intent");
-
             Log.i(TAG, "result " +  intent.getIntExtra("resultCode", 10000));
             Log.i(TAG, "store " + intent.getStringExtra("storeId"));
             String store = intent.getStringExtra("storeId");
@@ -146,6 +131,8 @@ public class HomeScreenActivity extends AppCompatActivity implements OnMapReadyC
                     if (transition == Geofence.GEOFENCE_TRANSITION_ENTER || transition == Geofence.GEOFENCE_TRANSITION_DWELL) {
                         LatLng store_position = new LatLng(s.getLocation().latitude, s.getLocation().longitude);
                         storeMarkers.put(storeId, mMap.addMarker(new MarkerOptions().position(store_position).title(s.getName())));
+                        int strokeColor = 0xffff0000;
+                        int shadeColor = 0x44ff0000;
                         CircleOptions circleOptions = new CircleOptions().center(store_position).radius(50).fillColor(shadeColor).strokeColor(strokeColor).strokeWidth(2);
                         storeCircles.put(storeId, mMap.addCircle(circleOptions));
                         offersFragmentActivity.addOffers(storeId);
@@ -169,6 +156,9 @@ public class HomeScreenActivity extends AppCompatActivity implements OnMapReadyC
         super.onDestroy();
     }
 
+    /**
+     * Setups the geofence around all stores with a predefined radius.
+     */
     private void setupGeofence() {
         for (Store store : facade.getStores(0,0)) {
             googleGeofence.attachGeofences(store);
@@ -182,18 +172,8 @@ public class HomeScreenActivity extends AppCompatActivity implements OnMapReadyC
         fragmentTransaction.commit();
     }
 
-    /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     */
     @Override
     public void onMapReady(GoogleMap googleMap) {
-
         try {
             mMap = googleMap;
             mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
@@ -206,9 +186,6 @@ public class HomeScreenActivity extends AppCompatActivity implements OnMapReadyC
                     .icon(BitmapDescriptorFactory.fromResource(R.drawable.bluedot_smaller)));
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(current_position));
             }
-
-            //TODO: Create markers for stores
-
             setupLocationListener();
         } catch (SecurityException e) {
             Log.e("GoogleMaps", "No Location Permissions found");
@@ -216,7 +193,7 @@ public class HomeScreenActivity extends AppCompatActivity implements OnMapReadyC
     }
 
     private void setupLocationListener() throws SecurityException {
-        locationRequest = new LocationRequest();
+        LocationRequest locationRequest = new LocationRequest();
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
         locationRequest.setInterval(UPDATE_INTERVAL);
         locationRequest.setFastestInterval(FASTEST_INTERVAL);
@@ -224,12 +201,12 @@ public class HomeScreenActivity extends AppCompatActivity implements OnMapReadyC
         LocationServices.FusedLocationApi.requestLocationUpdates(googleApiClient, locationRequest, this);
     }
 
+    /**
+     * Request location permission, so that we can get the location of the
+     * device. The result of the permission request is handled by a callback,
+     * onRequestPermissionsResult.
+     */
     private void getLocationPermission() {
-        /*
-         * Request location permission, so that we can get the location of the
-         * device. The result of the permission request is handled by a callback,
-         * onRequestPermissionsResult.
-         */
         if (ContextCompat.checkSelfPermission(this.getApplicationContext(),
                 android.Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
@@ -306,7 +283,6 @@ public class HomeScreenActivity extends AppCompatActivity implements OnMapReadyC
             default:
                 break;
         }
-
         return true;
     }
 }

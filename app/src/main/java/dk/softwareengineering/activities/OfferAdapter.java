@@ -16,7 +16,9 @@ import businessLayer.IFacade;
 import domain.Offer;
 
 /**
- * Inspiration from https://stackoverflow.com/questions/40584424/simple-android-recyclerview-example
+ * Used for creating coupon fragment elements that display coupons in {@link MyCouponsActivity}.
+ *
+ * Inspiration from @Link {https://stackoverflow.com/questions/40584424/simple-android-recyclerview-example}
  */
 public class OfferAdapter extends RecyclerView.Adapter<OfferAdapter.ViewHolder> {
 
@@ -26,23 +28,19 @@ public class OfferAdapter extends RecyclerView.Adapter<OfferAdapter.ViewHolder> 
     private Context context;
     private IFacade facade;
 
-    // data is passed into the constructor
     public OfferAdapter(Context context, IFacade facade) {
         this.mInflater = LayoutInflater.from(context);
         this.mOffers = new ArrayList<>();
         this.context = context;
         this.facade = facade;
-
     }
 
-    // inflates the row layout from xml when needed
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = mInflater.inflate(R.layout.recyclerview_offer, parent, false);
         return new ViewHolder(view);
     }
 
-    // binds the data to the different elements of the offer
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Offer offer = mOffers.get(position);
@@ -60,13 +58,14 @@ public class OfferAdapter extends RecyclerView.Adapter<OfferAdapter.ViewHolder> 
         holder.txt_offer_Store.setText(mOfferStore);
     }
 
-    // total number of rows
     @Override
     public int getItemCount() {
         return mOffers.size();
     }
 
-    // stores and recycles views as they are scrolled off screen
+    /**
+     * Stores and recycles views as they are scrolled off screen.
+     */
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         ImageView img_offerImage;
@@ -77,7 +76,7 @@ public class OfferAdapter extends RecyclerView.Adapter<OfferAdapter.ViewHolder> 
             super(itemView);
             img_offerImage = itemView.findViewById(R.id.img_offer);
             txt_offerTitle = itemView.findViewById(R.id.txt_offerTitle);
-            txt_offer_Store = itemView.findViewById(R.id.txt_offerStore);
+            txt_offer_Store = itemView.findViewById(R.id.txt_offer_Store);
             txt_offerPrice = itemView.findViewById(R.id.txt_offerPrice);
             txt_offerDiscount = itemView.findViewById(R.id.txt_offerDiscount);
             itemView.setOnClickListener(this);
@@ -90,25 +89,47 @@ public class OfferAdapter extends RecyclerView.Adapter<OfferAdapter.ViewHolder> 
         }
     }
 
-    // convenience method for getting data at click position
+    /**
+     * Convenience method for getting data at click position.
+     *
+     * @param id The item ID that was clicked on.
+     *
+     * @return Returns the items that was
+     */
     public Offer getItem(int id) {
         return mOffers.get(id);
     }
 
-    // allows clicks events to be caught
+    /**
+     * Allows clicks events to be caught.
+     *
+     * @param itemClickListener The item click listener.
+     */
     public void setClickListener(ItemClickListener itemClickListener) {
         this.mClickListener = itemClickListener;
     }
 
-    // parent activity will implement this method to respond to click events
+    /**
+     * Parent activity will implement this method to respond to click events.
+     */
     public interface ItemClickListener {
         void onItemClick(View view, int position);
     }
 
+    /**
+     * Adds offers.
+     *
+     * @param offers Offers to be added.
+     */
     public void addOffers(List<Offer> offers) {
         mOffers.addAll(offers);
     }
 
+    /**
+     * Removes offers.
+     *
+     * @param offers Offers to be removed.
+     */
     public void removeOffers(List<Offer> offers) {
         mOffers.removeAll(offers);
     }

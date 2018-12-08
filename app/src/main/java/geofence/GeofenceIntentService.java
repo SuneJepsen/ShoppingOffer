@@ -42,13 +42,12 @@ public class GeofenceIntentService extends IntentService {
                 // Send notification and log the transition details.
                 for (Geofence g : geofenceEvent.getTriggeringGeofences()) {
                     Log.i(TAG, "id: " + g.getRequestId());
-                    //sendNotification(id, geofenceEvent.isEnter());
 
                     Intent in = new Intent(ACTION);
                     in.putExtra("resultCode", Activity.RESULT_OK);
                     in.putExtra("storeId", g.getRequestId());
                     in.putExtra("resultValue", geofenceEvent.getGeofenceTransition());
-                    // Fire the broadcast with intent packaged
+                    // Fire the broadcast with intent packaged.
                     LocalBroadcastManager.getInstance(this).sendBroadcast(in);
                 }
             } catch (Exception e) {
@@ -59,7 +58,4 @@ public class GeofenceIntentService extends IntentService {
             Log.e(TAG, "Geofence is not enter or exit");
         }
     }
-
-
-
 }

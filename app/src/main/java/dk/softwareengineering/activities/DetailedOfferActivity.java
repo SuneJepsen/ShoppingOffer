@@ -2,8 +2,6 @@ package dk.softwareengineering.activities;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
@@ -22,7 +20,7 @@ import businessLayer.IFacade;
 import domain.Offer;
 
 /**
- * @TODO comment code
+ * Used for displaying detailed information about a Offer.
  */
 public class DetailedOfferActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
@@ -31,23 +29,13 @@ public class DetailedOfferActivity extends AppCompatActivity implements BottomNa
     public static Context contextOfApplication;
 
     public DetailedOfferActivity() {
-
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-
         contextOfApplication = getApplicationContext();
         ISessionRepository session = new SharedPreferenceRepository(contextOfApplication);
         this.facade = new Facade(session);
-
-        /*contextOfApplication = getApplicationContext();
-
-        ISessionRepository session = new SharedPreferenceRepository(contextOfApplication);
-
-        List<Coupon> coupons  = session.getUserCoupons("sune@student.sdu.dk");
-        */
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detailed_offer);
@@ -56,29 +44,23 @@ public class DetailedOfferActivity extends AppCompatActivity implements BottomNa
         navView.getMenu().getItem(1).setChecked(true);
         navView.setOnNavigationItemSelectedListener(this);
 
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        SharedPreferences.Editor editor = preferences.edit();
-
         ImageView img_offerImage = (ImageView) findViewById(R.id.img_offerImage);
         TextView txt_offerTitle = (TextView) findViewById(R.id.txt_offerTitle);
         TextView txt_store = (TextView) findViewById(R.id.txt_store);
         TextView txt_stock = (TextView) findViewById(R.id.txtStock);
         TextView txt_offerPrice = (TextView) findViewById(R.id.txtPrice);
-        TextView txt_description = (TextView) findViewById(R.id.txt_offerDescription);
         TextView txt_deadline = (TextView) findViewById(R.id.txt_deadline);
         Button btn_reserve = (Button) findViewById(R.id.btnReserve);
+
         btn_reserve.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+            facade.saveOfferToUser("sune@student.sdu.dk",offerId);
+            Intent intent = new Intent(DetailedOfferActivity.this, MyCouponsActivity.class);
 
-                //ToDo: insert userId and the offer Id
-                facade.saveOfferToUser("sune@student.sdu.dk",offerId);
-                Intent intent = new Intent(DetailedOfferActivity.this, MyCouponsActivity.class);
-
-                startActivity(intent);
+            startActivity(intent);
             }
         });
-
 
         Intent intent = getIntent();
         savedInstanceState = intent.getExtras();
@@ -92,16 +74,13 @@ public class DetailedOfferActivity extends AppCompatActivity implements BottomNa
             txt_store.setText(facade.getStoreById(offer.getStoreId()).getName());
             txt_stock.setText(Integer.toString(offer.getAmountCounter()));
             txt_offerPrice.setText(Double.toString(offer.getPrice()) + " kr");
-            //txt_description.setText();
             txt_deadline.setText(new SimpleDateFormat("hh:mm").format(offer.getTimeCounter()));
         }
-
     }
-
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        Intent intent = null;
+        Intent intent;
         switch (item.getItemId()) {
             case R.id.action_map:
                 intent = new Intent(getBaseContext(), HomeScreenActivity.class);
@@ -116,7 +95,6 @@ public class DetailedOfferActivity extends AppCompatActivity implements BottomNa
                 startActivity(intent);
                 break;
         }
-
         return true;
     }
 }

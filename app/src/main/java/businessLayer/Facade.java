@@ -17,9 +17,8 @@ import domain.Offer;
 import domain.Store;
 
 /**
- * Created by Sune Jepsen on 27-10-2018.
+ * Used as a facade to mask complexity.
  */
-
 public class Facade implements IFacade {
     private final IOfferRepository offerRepository;
     private final FakeStoreRepository storeRepository;
