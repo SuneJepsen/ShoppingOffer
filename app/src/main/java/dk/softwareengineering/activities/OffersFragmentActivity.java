@@ -49,6 +49,9 @@ public class OffersFragmentActivity extends Fragment implements OfferAdapter.Ite
         adapter = new OfferAdapter(rootView.getContext(),facade);
         adapter.setClickListener(this);
         recyclerView.setAdapter(adapter);
+
+        // OBS: this linje "fakes" offers when not in geofence
+        addOffers(4);
         return rootView;
     }
 

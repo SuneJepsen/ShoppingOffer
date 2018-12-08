@@ -34,7 +34,7 @@ public class SharedPreferenceRepository implements ISessionRepository {
 
         String couponsJson = prefs.getString(userId, "");
 
-        if(couponsJson.isEmpty())
+        if(couponsJson == null || couponsJson.isEmpty())
             return null;
 
         List<Coupon> coupons  = gson.fromJson(couponsJson, couponListType);
