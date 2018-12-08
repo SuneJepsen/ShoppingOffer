@@ -16,11 +16,13 @@
     <string name="error_field_required">This field is required</string>
     <string name="permission_rationale">"Contacts permissions are needed for providing email</string>
     <string name="action_register">"Register"</string>
-    <string name="title_activity_show_stores">ShowStoresActivity</string>
-    <string name="title_activity_list_offers">ListOffersActivity</string>
-    <string name="title_activity_offer_detail">OfferDetailActivity</string>
-    <string name="title_activity_confirm_offer">ConfirmOfferActivity</string>
-    <string name="title_activity_order_list">OrderListActivity</string>
-    <string name="title_activity_order_detail">OrderDetailActivity</string>
-    <string name="title_activity_google_maps">Map</string>
+    <string name="title_activity_Coupon">Coupon</string>
+    <string name="title_activity_Offer">Offer</string>
+    <string name="title_activity_Profile">Profile</string>
+    <string name="title_activity_MyCoupons">My Coupons</string>
+    <string name="title_activity_HomeScreen">Map</string>
+    <string name="action_map_title">Map</string>
+    <string name="action_coupons_title">Coupons</string>
+    <string name="action_profile_title">Profile</string>
+
 </resources>

@@ -1,5 +1,7 @@
 package domain;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -12,12 +14,14 @@ public class Store {
     private String Name;
     private Date CreatedDate;
     private ArrayList<Offer> Offers;
+    private LatLng Location;
 
-    public Store(int id, String name, Date createdDate, ArrayList<Offer> offers) {
+    public Store(int id, String name, Date createdDate, LatLng location, ArrayList<Offer> offers) {
         Id = id;
         Name = name;
         CreatedDate = createdDate;
         Offers = offers;
+        Location = location;
     }
     public int getId(){ return Id; }
     public void setId(int id){ Id = id;}
@@ -27,4 +31,6 @@ public class Store {
     public void setCreatedDate(Date createdDate) { CreatedDate = createdDate; }
     public ArrayList<Offer> getOffers() { return Offers; }
     public void setOffers(ArrayList<Offer> offers) { Offers = offers;}
+    public LatLng getLocation() { return Location; }
+    public void setLocation(LatLng location) { Location = location; }
 }
