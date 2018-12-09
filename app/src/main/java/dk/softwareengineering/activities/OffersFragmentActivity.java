@@ -49,7 +49,7 @@ public class OffersFragmentActivity extends Fragment implements OfferAdapter.Ite
         adapter = new OfferAdapter(rootView.getContext(),facade);
         adapter.setClickListener(this);
         recyclerView.setAdapter(adapter);
-        
+
         return rootView;
     }
 
