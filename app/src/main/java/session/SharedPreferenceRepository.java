@@ -16,70 +16,72 @@ import java.util.List;
 import domain.Coupon;
 import domain.Offer;
 
+/**
+ * Used for saving coupons into memory on the mobile device. This will be replaced by a proper
+ * data storage system.
+ */
 public class SharedPreferenceRepository implements ISessionRepository {
     private final Gson gson;
-    private Context contextOfApplication;
     private SharedPreferences prefs;
 
-
     public SharedPreferenceRepository(Context contextOfApplication) {
-        this.contextOfApplication = contextOfApplication;
         this.prefs = PreferenceManager.getDefaultSharedPreferences(contextOfApplication);
         this.gson = new Gson();
     }
 
-    private List<Coupon> GetUserCouponsInPref(String userId){
+    private List<Coupon> getUserCouponsInPref(String userId){
         Type couponListType = new TypeToken<ArrayList<Coupon>>(){}.getType();
 
         String couponsJson = prefs.getString(userId, "");
-
         if(couponsJson == null || couponsJson.isEmpty())
             return null;
 
         List<Coupon> coupons  = gson.fromJson(couponsJson, couponListType);
-
+        List<Coupon> validCoupons = new ArrayList<>();
         for (Coupon item : coupons) {
-            Log.i("CouponFromShared ", item.getOffer().getTitle());
+            if (item.getOffer() != null) {
+                validCoupons.add(item);
+                Log.i("CouponFromShared ", item.getOffer().getTitle() + "");
+            }
         }
 
-        return coupons;
+        return validCoupons;
     }
 
-    public void SaveOfferToUser(String userId, Offer offer){
+    public void saveOfferToCustomer(String customerId, Offer offer){
 
-        List<Coupon> coupons = GetUserCouponsInPref(userId);
-
+        List<Coupon> coupons = getUserCouponsInPref(customerId);
         if(coupons== null)
             coupons = new ArrayList<Coupon>();
 
-        coupons.add(new Coupon( GenerateRandomInt (1, 100), new Date(), offer));
+        coupons.add(new Coupon( generateRandomInt(1, 100), new Date(), offer));
 
         String json = gson.toJson(coupons);
 
         SharedPreferences.Editor editor = prefs.edit();
 
-        editor.putString(userId, json);
+        editor.putString(customerId, json);
 
         editor.commit();
 
 
-        Log.i("saveOfferToUser, userId: ", userId);
+        Log.i("saveOfferToCustomer, userId: ", customerId);
 
     }
 
-    public List<Coupon> GetUserCoupons(String userId){
-        List<Coupon> coupons = GetUserCouponsInPref(userId);
+    public List<Coupon> getCustomerCoupons(String customerId){
+        List<Coupon> coupons = getUserCouponsInPref(customerId);
 
         if(coupons== null){
             return new ArrayList<Coupon>();
         }
 
-        Log.i("getUserCoupons, userId: ", userId);
+        Log.i("getCustomerCoupons, userId: ", customerId);
 
         return coupons;
     }
 
-    private int GenerateRandomInt(int min, int max){
+    private int generateRandomInt(int min, int max){
         return min + (int)(Math.random() * ((max - min) + 1));
     }
 }

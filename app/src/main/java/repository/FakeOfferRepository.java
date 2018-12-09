@@ -3,23 +3,22 @@ package repository;
 import java.util.ArrayList;
 
 import domain.Offer;
-import domain.User;
+import domain.Customer;
 import factory.IStoreFactory;
-import factory.IUserFactory;
+import factory.ICustomerFactory;
 import session.ISessionRepository;
 
 /**
- * Created by Sune Jepsen on 27-10-2018.
+ * Used for fake offers. Will be replaced with actual data storage system.
  */
-
 public class FakeOfferRepository implements IOfferRepository {
-    private final ArrayList<User> users;
+    private final ArrayList<Customer> customers;
     private final ISessionRepository prefRepo;
     private ArrayList<Offer> offers;
 
-    public FakeOfferRepository(IStoreFactory storeFactory, IUserFactory userFactory, ISessionRepository prefRepo) {
+    public FakeOfferRepository(IStoreFactory storeFactory, ICustomerFactory customerFactory, ISessionRepository prefRepo) {
         this.offers = storeFactory.getOffers();
-        this.users = userFactory.getUsers();
+        this.customers = customerFactory.getCustomers();
         this.prefRepo = prefRepo;
     }
 
@@ -32,7 +31,7 @@ public class FakeOfferRepository implements IOfferRepository {
                 return offer;
             }
         }
-        //Fallback
+        //Fallback.
         return this.offers.get(0);
     }
     @Override
@@ -48,7 +47,7 @@ public class FakeOfferRepository implements IOfferRepository {
             }
         }
         if(offerToReturn.size() == 0)
-            return this.offers; //Fallback
+            return this.offers; //Fallback.
         else
             return offerToReturn;
     }
@@ -63,18 +62,13 @@ public class FakeOfferRepository implements IOfferRepository {
             }
         }
         if(storeOfferToReturn.size() == 0)
-            return this.offers; //Fallback
+            return this.offers; //Fallback.
         else
             return storeOfferToReturn;
     }
 
-    public void SaveOfferToUser(String userId, int offerId){
+    public void saveOfferToCustomer(String customerId, int offerId){
         Offer offer = getOfferById(offerId);
-        prefRepo.SaveOfferToUser(userId,offer);
+        prefRepo.saveOfferToCustomer(customerId,offer);
     }
-
-
-
-
-
 }

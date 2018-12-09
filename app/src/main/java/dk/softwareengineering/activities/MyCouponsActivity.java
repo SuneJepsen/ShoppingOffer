@@ -14,15 +14,17 @@ import session.ISessionRepository;
 import session.SharedPreferenceRepository;
 import businessLayer.Facade;
 
-
+/**
+ * Used for displaying coupon cardviews.
+ */
 public class MyCouponsActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
     public static Context contextOfApplication;
     private Facade facade;
-    public MyCouponsActivity(){
 
+    public MyCouponsActivity(){
     }
 
     @Override
@@ -43,6 +45,9 @@ public class MyCouponsActivity extends AppCompatActivity implements BottomNaviga
         addCouponsFragment();
     }
 
+    /**
+     * Adds the coupon fragment to the coupons container in the Activity.
+     */
     private void addCouponsFragment(){
         CouponsFragmentActivity couponsFragmentActivityFragment = new CouponsFragmentActivity(facade);
         fragmentTransaction.add(R.id.couponsContainer, couponsFragmentActivityFragment);
@@ -52,7 +57,7 @@ public class MyCouponsActivity extends AppCompatActivity implements BottomNaviga
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        Intent intent = null;
+        Intent intent;
         switch (item.getItemId()) {
             case R.id.action_map:
                 intent = new Intent(getBaseContext(), HomeScreenActivity.class);
@@ -65,7 +70,6 @@ public class MyCouponsActivity extends AppCompatActivity implements BottomNaviga
             default:
                 break;
         }
-
         return true;
     }
 }

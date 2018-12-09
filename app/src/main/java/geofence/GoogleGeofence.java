@@ -3,12 +3,9 @@ package geofence;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.util.Log;
 
-import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
@@ -19,12 +16,10 @@ import com.google.android.gms.maps.model.LatLng;
 
 import domain.Store;
 
-
 /**
- * Geofencing combines awareness of the user's current location with
- * awareness of the user's proximity to locations that may be of interest.
+ * Geofencing combines awareness of the customers's current location with
+ * awareness of the customers's proximity to locations that may be of interest.
  */
-
 public class GoogleGeofence implements IGeofence, ResultCallback<Status> {
     private int radius;
     private int bufferInMinutes;
@@ -45,8 +40,6 @@ public class GoogleGeofence implements IGeofence, ResultCallback<Status> {
         Log.i(TAG, "attach geofences");
         Geofence fence = createGeofence(String.valueOf(store.getId()), store.getLocation());
         addGeofence(createGeofencingRequest(fence));
-
-
     }
 
     private Geofence createGeofence(String id, LatLng location) {
@@ -97,7 +90,7 @@ public class GoogleGeofence implements IGeofence, ResultCallback<Status> {
     }
 
     private PendingIntent getGeofencePendingIntent() {
-        // Start service ??
+        // Start service
         Intent intent = new Intent(context, GeofenceIntentService.class);
         // We use FLAG_UPDATE_CURRENT so that we get the same pending intent back when
         // calling addGeofences() and removeGeofences().
@@ -110,5 +103,4 @@ public class GoogleGeofence implements IGeofence, ResultCallback<Status> {
     public void onResult(@NonNull Status status) {
         Log.i(TAG, "onResult " + status.getStatusCode() + " " + status.getStatusMessage());
     }
-
 }

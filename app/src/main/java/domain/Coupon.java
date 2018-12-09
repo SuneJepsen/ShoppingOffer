@@ -2,26 +2,29 @@ package domain;
 
 import java.util.Date;
 
+/**
+ * POJO of a coupon. Contains information such as ID, created date and so on.
+ */
 public class Coupon {
-    private int Id;
-    private int ConfirmationCode;
-    private Date CreatedDate;
-    private Boolean Sold;
-    private Offer Offer;
+    private int id;
+    private int confirmationCode;
+    private Date createdDate;
+    private Boolean sold;
+    private Offer offer;
 
     public Coupon(int id, Date createdDate, domain.Offer offer) {
-        CreatedDate = createdDate;
-        Offer = offer;
-        Id = id;
+        this.createdDate = createdDate;
+        this.offer = offer;
+        this.id = id;
     }
 
     public domain.Offer getOffer() {
-        return Offer;
+        return offer;
     }
 
     public int getId() {
-        return Id;
+        return id;
     }
 
-    public Date getCreatedDat() { return CreatedDate; }
+    public Date getCreatedDate() { return createdDate; }
 }

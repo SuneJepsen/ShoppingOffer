@@ -8,8 +8,11 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
+/**
+ * Used for displaying the profile of a user. Currently only displays an image and hardcoded
+ * checklist of categories.
+ */
 public class ProfileActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,7 +25,7 @@ public class ProfileActivity extends AppCompatActivity implements BottomNavigati
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        Intent intent = null;
+        Intent intent;
         switch (item.getItemId()) {
             case R.id.action_map:
                 intent = new Intent(getBaseContext(), HomeScreenActivity.class);
@@ -35,7 +38,6 @@ public class ProfileActivity extends AppCompatActivity implements BottomNavigati
             default:
                 break;
         }
-
         return true;
     }
 }

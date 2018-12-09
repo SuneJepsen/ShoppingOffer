@@ -17,7 +17,11 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
-
+/**
+ * Used for creating coupon fragment elements that display coupons in {@link MyCouponsActivity}.
+ *
+ * Inspiration from @Link {https://stackoverflow.com/questions/40584424/simple-android-recyclerview-example}
+ */
 public class MyCouponsAdapter extends RecyclerView.Adapter<MyCouponsAdapter.ViewHolder> {
 
     private List<Coupon> coupons;
@@ -30,7 +34,7 @@ public class MyCouponsAdapter extends RecyclerView.Adapter<MyCouponsAdapter.View
         this.mInflater = LayoutInflater.from(context);
         this.facade = facade;
         this.context = context;
-        this.coupons = facade.getUserCoupons("sune@student.sdu.dk");
+        this.coupons = facade.getCustomerCoupons("sune@student.sdu.dk");
     }
 
     @Override
@@ -91,21 +95,31 @@ public class MyCouponsAdapter extends RecyclerView.Adapter<MyCouponsAdapter.View
             if (mClickListener != null)
                 mClickListener.onItemClick(view, getAdapterPosition());
         }
-
-
     }
 
-    // convenience method for getting data at click position
+    /**
+     * Convenience method for getting data at click position.
+     *
+     * @param id The item ID that was clicked on.
+     *
+     * @return Returns the items that was
+     */
     public Coupon getItem(int id) {
         return coupons.get(id);
     }
 
-    // allows clicks events to be caught
+    /**
+     * Allows clicks events to be caught.
+     *
+     * @param itemClickListener The item click listener.
+     */
     public void setClickListener(MyCouponsAdapter.ItemClickListener itemClickListener) {
         this.mClickListener = itemClickListener;
     }
 
-    // parent activity will implement this method to respond to click events
+    /**
+     * Parent activity will implement this method to respond to click events.
+     */
     public interface ItemClickListener {
         void onItemClick(View view, int position);
     }
