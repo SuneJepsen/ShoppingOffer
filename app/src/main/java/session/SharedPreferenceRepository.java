@@ -33,23 +33,24 @@ public class SharedPreferenceRepository implements ISessionRepository {
         Type couponListType = new TypeToken<ArrayList<Coupon>>(){}.getType();
 
         String couponsJson = prefs.getString(userId, "");
-
         if(couponsJson == null || couponsJson.isEmpty())
             return null;
 
         List<Coupon> coupons  = gson.fromJson(couponsJson, couponListType);
-
+        List<Coupon> validCoupons = new ArrayList<>();
         for (Coupon item : coupons) {
-            Log.i("CouponFromShared ", item.getOffer().getTitle());
+            if (item.getOffer() != null) {
+                validCoupons.add(item);
+                Log.i("CouponFromShared ", item.getOffer().getTitle() + "");
+            }
         }
 
-        return coupons;
+        return validCoupons;
     }
 
     public void saveOfferToCustomer(String customerId, Offer offer){
 
         List<Coupon> coupons = getUserCouponsInPref(customerId);
-
         if(coupons== null)
             coupons = new ArrayList<Coupon>();
 
