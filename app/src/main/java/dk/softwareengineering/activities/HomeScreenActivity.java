@@ -21,9 +21,12 @@ import android.util.Log;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.Geofence;
+import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -35,6 +38,7 @@ import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnSuccessListener;
 
 import android.view.MenuItem;
 
@@ -56,11 +60,11 @@ import session.SharedPreferenceRepository;
  * Used for displaying the map and offers from store.
  */
 public class HomeScreenActivity extends AppCompatActivity implements OnMapReadyCallback,GoogleApiClient.ConnectionCallbacks,
-        GoogleApiClient.OnConnectionFailedListener, LocationListener, BottomNavigationView.OnNavigationItemSelectedListener {
+        GoogleApiClient.OnConnectionFailedListener, BottomNavigationView.OnNavigationItemSelectedListener {
 
     public static final String ACTION = "GeofenceIntentService";
     private static final String TAG = "GoogleMaps";
-    private static final int UPDATE_INTERVAL = 1000, FASTEST_INTERVAL = 1000, RADIUS = 1000 ;
+    private static final int UPDATE_INTERVAL = 1000, FASTEST_INTERVAL = 1000, RADIUS = 10000 ;
     private GoogleMap mMap;
     private GoogleApiClient googleApiClient;
     public final static int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
@@ -74,6 +78,8 @@ public class HomeScreenActivity extends AppCompatActivity implements OnMapReadyC
     private Map<Integer, Marker> storeMarkers;
     private Map<Integer, Circle> storeCircles;
     private OffersFragmentActivity offersFragmentActivity;
+    private FusedLocationProviderClient fusedLocationProviderClient;
+    private LocationCallback locationCallback;
 
     public HomeScreenActivity() {
     }
@@ -103,6 +109,24 @@ public class HomeScreenActivity extends AppCompatActivity implements OnMapReadyC
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this).build();
         googleApiClient.connect();
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+        locationCallback = new LocationCallback() {
+            @Override
+            public void onLocationResult(LocationResult locationResult) {
+                if (locationResult == null) {
+                    return;
+                }
+                Location location = locationResult.getLastLocation();
+                LatLng current_position = new LatLng(location.getLatitude(), location.getLongitude());
+                if (marker != null) {
+                    marker.remove();
+                }
+                marker = mMap.addMarker(new MarkerOptions().position(current_position).title("Current Position")
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.bluedot_smaller)));
+                mMap.moveCamera(CameraUpdateFactory.newLatLng(current_position));
+                Log.i("GoogleMaps", "current location changed: " + location.getLatitude() + ", " + location.getLongitude());
+            }
+        };
 
         storeMarkers = new HashMap<>();
         storeCircles = new HashMap<>();
@@ -133,7 +157,7 @@ public class HomeScreenActivity extends AppCompatActivity implements OnMapReadyC
                         storeMarkers.put(storeId, mMap.addMarker(new MarkerOptions().position(store_position).title(s.getName())));
                         int strokeColor = 0xffff0000;
                         int shadeColor = 0x44ff0000;
-                        CircleOptions circleOptions = new CircleOptions().center(store_position).radius(50).fillColor(shadeColor).strokeColor(strokeColor).strokeWidth(2);
+                        CircleOptions circleOptions = new CircleOptions().center(store_position).radius(RADIUS).fillColor(shadeColor).strokeColor(strokeColor).strokeWidth(2);
                         storeCircles.put(storeId, mMap.addCircle(circleOptions));
                         offersFragmentActivity.addOffers(storeId);
                     } else if (transition == Geofence.GEOFENCE_TRANSITION_EXIT) {
@@ -177,16 +201,19 @@ public class HomeScreenActivity extends AppCompatActivity implements OnMapReadyC
         try {
             mMap = googleMap;
             mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-            // TODO: Update deprecated API
-            Location location = LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
-            if (location != null) {
-                Log.i("GoogleMaps", "Initial location " + location.getLatitude() + ", " + location.getLongitude());
-                LatLng current_position = new LatLng(location.getLatitude(), location.getLongitude());
-                marker = mMap.addMarker(new MarkerOptions().position(current_position).title("Current Position")
-                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.bluedot_smaller)));
-                mMap.moveCamera(CameraUpdateFactory.newLatLng(current_position));
-            }
-            setupLocationListener();
+            fusedLocationProviderClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
+                @Override
+                public void onSuccess(Location location) {
+                    if (location != null) {
+                        Log.i("GoogleMaps", "Initial location " + location.getLatitude() + ", " + location.getLongitude());
+                        LatLng current_position = new LatLng(location.getLatitude(), location.getLongitude());
+                        marker = mMap.addMarker(new MarkerOptions().position(current_position).title("Current Position")
+                                .icon(BitmapDescriptorFactory.fromResource(R.drawable.bluedot_smaller)));
+                        mMap.moveCamera(CameraUpdateFactory.newLatLng(current_position));
+                    }
+                    setupLocationListener();
+                }
+            });
         } catch (SecurityException e) {
             Log.e("GoogleMaps", "No Location Permissions found");
         }
@@ -197,8 +224,7 @@ public class HomeScreenActivity extends AppCompatActivity implements OnMapReadyC
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
         locationRequest.setInterval(UPDATE_INTERVAL);
         locationRequest.setFastestInterval(FASTEST_INTERVAL);
-        //TODO: Update deprecated API
-        LocationServices.FusedLocationApi.requestLocationUpdates(googleApiClient, locationRequest, this);
+        fusedLocationProviderClient.requestLocationUpdates(locationRequest, locationCallback, null);
     }
 
     /**
@@ -254,18 +280,6 @@ public class HomeScreenActivity extends AppCompatActivity implements OnMapReadyC
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
         Log.i("GoogleMaps", "Connection Failed");
-    }
-
-    @Override
-    public void onLocationChanged(Location location) {
-        LatLng current_position = new LatLng(location.getLatitude(), location.getLongitude());
-        if (marker != null) {
-            marker.remove();
-        }
-        marker = mMap.addMarker(new MarkerOptions().position(current_position).title("Current Position")
-            .icon(BitmapDescriptorFactory.fromResource(R.drawable.bluedot_smaller)));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(current_position));
-        Log.i("GoogleMaps", "current location changed: " + location.getLatitude() + ", " + location.getLongitude());
     }
 
     @Override
