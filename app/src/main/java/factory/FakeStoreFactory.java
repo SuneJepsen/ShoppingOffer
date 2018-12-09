@@ -16,15 +16,15 @@ public class FakeStoreFactory implements IStoreFactory {
 
     public FakeStoreFactory() {
         this.stores = new ArrayList<Store>(){{
-            add(new Store(1, "Only", new Date(), new LatLng(55.367913, 10.428155), new ArrayList<Offer>(){{
-                add(new Offer( 23, "Sweater", 30, 55.367913,10.428155, 499.99, "p1", new Date(), 50,  new Date(), 1));
-                add(new Offer( 24, "Shirt", 60, 55.367913,10.428155, 199.99, "shirt", new Date(), 20,  new Date(), 1 ));
+            add(new Store(1, "Only", new Date(), new LatLng(55.540755, 9.713439), new ArrayList<Offer>(){{
+                add(new Offer( 23, "Sweater", 30, 55.540755,9.713439, 499.99, "p1", new Date(), 50,  new Date(), 1));
+                add(new Offer( 24, "Shirt", 60, 55.540755,9.713439, 199.99, "shirt", new Date(), 20,  new Date(), 1 ));
             }}));
 
-            add(new Store(2, "Vera Moda", new Date(), new LatLng(55.367913, 10.428155), new ArrayList<Offer>(){{
-                add(new Offer( 25, "Pants", 60, 55.367913,10.428155, 299.99, "pants", new Date(), 100,  new Date(), 2));
-                add(new Offer( 26, "Shirt", 40, 55.367913,10.428155, 249.99, "shirt", new Date(), 120,  new Date(), 2 ));
-                add(new Offer( 27, "Jackets", 80, 55.367913,10.428155, 399, "p9", new Date(), 100,  new Date(),2 ));
+            add(new Store(2, "Vera Moda", new Date(), new LatLng(55.540722, 9.713209), new ArrayList<Offer>(){{
+                add(new Offer( 25, "Pants", 60, 55.540722,9.713209, 299.99, "pants", new Date(), 100,  new Date(), 2));
+                add(new Offer( 26, "Shirt", 40, 55.540722,9.713209, 249.99, "shirt", new Date(), 120,  new Date(), 2 ));
+                add(new Offer( 27, "Jackets", 80, 55.540722,9.713209, 399, "p9", new Date(), 100,  new Date(),2 ));
             }}));
 
             add(new Store(3, "Companys", new Date(), new LatLng(55.3957872, 10.372331), new ArrayList<Offer>(){{
