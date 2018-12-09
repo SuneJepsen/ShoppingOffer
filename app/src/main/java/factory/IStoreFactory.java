@@ -6,11 +6,21 @@ import domain.Offer;
 import domain.Store;
 
 /**
- * Created by Sune Jepsen on 29-10-2018.
+ * Interface for  the factory.
  */
-
 public interface IStoreFactory {
+    /**
+     * Gets all stores.
+     *
+     * @return Returns list of stores.
+     */
     ArrayList<Store> getStores();
+
+    /**
+     * Gets all offers.
+     *
+     * @return Returns list of offers.
+     */
     ArrayList<Offer> getOffers();
 }
 

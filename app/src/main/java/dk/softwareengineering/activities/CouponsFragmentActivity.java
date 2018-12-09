@@ -19,19 +19,15 @@ import businessLayer.IFacade;
 import domain.Coupon;
 import domain.Offer;
 
-
+/**
+ * Used for creating coupon fragments that display coupons in {@link MyCouponsActivity}.
+ */
 @SuppressLint("ValidFragment")
 public class CouponsFragmentActivity extends Fragment implements  MyCouponsAdapter.ItemClickListener {
 
-    private View rootView;
     private MyCouponsAdapter adapter;
     private final IFacade facade;
-    private ArrayList<Offer> offers;
-    public static Context contextOfApplication;
-    /**
-     * Mandatory empty constructor for the fragment manager to instantiate the
-     * fragment (e.g. upon screen orientation changes).
-     */
+
     @SuppressLint("ValidFragment")
     public CouponsFragmentActivity(IFacade facade) {
 
@@ -41,10 +37,7 @@ public class CouponsFragmentActivity extends Fragment implements  MyCouponsAdapt
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.activity_coupons_fragment, container, false);
-
-        // Data to populate the RecyclerView with
-        //ArrayList<Offer> offers = facade.getOffersByLatLong(55.55, 55.55);
+        View rootView = inflater.inflate(R.layout.activity_coupons_fragment, container, false);
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
         int offerId = preferences.getInt("offerId", 0);
@@ -52,7 +45,7 @@ public class CouponsFragmentActivity extends Fragment implements  MyCouponsAdapt
         ArrayList<Offer> offers = new ArrayList<>();
         Offer offer = facade.getOfferById(offerId);
         offers.add(offer);
-        // Setup RecyclerView
+        // Setup RecyclerView.
         RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.rv_coupons);
         LinearLayoutManager verticalLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(verticalLayoutManager);

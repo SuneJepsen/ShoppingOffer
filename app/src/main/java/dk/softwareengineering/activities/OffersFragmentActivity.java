@@ -19,7 +19,7 @@ import businessLayer.IFacade;
 import domain.Offer;
 
 /**
- * @TODO Comment and comment purpose of class
+ * Used for creating coupon fragments that display coupons in {@link MyCouponsActivity}.
  */
 @SuppressLint("ValidFragment")
 public class OffersFragmentActivity extends Fragment implements OfferAdapter.ItemClickListener {
@@ -36,7 +36,6 @@ public class OffersFragmentActivity extends Fragment implements OfferAdapter.Ite
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        //super.onCreateView(inflater, container, savedInstanceState);
         rootView = inflater.inflate(R.layout.activity_offers_fragment, container, false);
 
         // Setup RecyclerView
@@ -50,6 +49,7 @@ public class OffersFragmentActivity extends Fragment implements OfferAdapter.Ite
         adapter = new OfferAdapter(rootView.getContext(),facade);
         adapter.setClickListener(this);
         recyclerView.setAdapter(adapter);
+
         return rootView;
     }
 
@@ -62,14 +62,23 @@ public class OffersFragmentActivity extends Fragment implements OfferAdapter.Ite
         startActivity(intent);
     }
 
+    /**
+     * Offers to load into the recyclerview.
+     *
+     * @param storeId Loads offers depending on the store.
+     */
     public void addOffers(int storeId) {
-        // Data to populate the RecyclerView with
         List<Offer> offers = facade.getStoreOffers(storeId);
         Log.i(TAG, "add " + offers.size() + " offers for store " + storeId);
         adapter.addOffers(offers);
         adapter.notifyDataSetChanged();
     }
 
+    /**
+     * Offers to remove from the recyclerview.
+     *
+     * @param storeId Removes offers depending on the store.
+     */
     public void removeOffers(int storeId) {
         List<Offer> offers = facade.getStoreOffers(storeId);
         Log.i(TAG, "remove " + offers.size() + " offers for store " + storeId);
