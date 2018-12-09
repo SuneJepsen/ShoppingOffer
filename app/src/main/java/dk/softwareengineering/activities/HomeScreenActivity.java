@@ -64,7 +64,7 @@ public class HomeScreenActivity extends AppCompatActivity implements OnMapReadyC
 
     public static final String ACTION = "GeofenceIntentService";
     private static final String TAG = "GoogleMaps";
-    private static final int UPDATE_INTERVAL = 1000, FASTEST_INTERVAL = 1000, RADIUS = 1000 ;
+    private static final int UPDATE_INTERVAL = 1000, FASTEST_INTERVAL = 1000, RADIUS = 10000 ;
     private GoogleMap mMap;
     private GoogleApiClient googleApiClient;
     public final static int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
@@ -157,7 +157,7 @@ public class HomeScreenActivity extends AppCompatActivity implements OnMapReadyC
                         storeMarkers.put(storeId, mMap.addMarker(new MarkerOptions().position(store_position).title(s.getName())));
                         int strokeColor = 0xffff0000;
                         int shadeColor = 0x44ff0000;
-                        CircleOptions circleOptions = new CircleOptions().center(store_position).radius(50).fillColor(shadeColor).strokeColor(strokeColor).strokeWidth(2);
+                        CircleOptions circleOptions = new CircleOptions().center(store_position).radius(RADIUS).fillColor(shadeColor).strokeColor(strokeColor).strokeWidth(2);
                         storeCircles.put(storeId, mMap.addCircle(circleOptions));
                         offersFragmentActivity.addOffers(storeId);
                     } else if (transition == Geofence.GEOFENCE_TRANSITION_EXIT) {
